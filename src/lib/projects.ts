@@ -28,34 +28,6 @@ export const projects = [
     client: "Delightio Hospitality Group",
     role: "UI/UX & Frontend Development",
     stack: ["React", "Express", "Tailwind CSS", "Firebase"],
-    link: "https://https://delightio.vercel.app/"
-  },
-  {
-    id: "03",
-    slug: "mehryaan",
-    title: "Mehryaan",
-    category: "E-COMMERCE",
-    image: mehryaan,
-    year: "2026",
-    description: "A high-end luxury e-commerce platform designed for a seamless shopping experience.",
-    longDescription: "Mehryaan is a premium e-commerce destination that blends traditional elegance with modern digital convenience. We built a custom storefront that focuses on high-resolution imagery, lightning-fast performance, and an intuitive checkout flow that minimizes friction and maximizes conversion.",
-    client: "Mehryaan Luxury",
-    role: "Full Stack Development",
-    stack: ["React", "Express", "Tailwind CSS", "Node.js", "MongoDB"],
-    link: "https://mehryan-e-commerce.vercel.app/"
-  },
-  {
-    id: "04",
-    slug: "delightio",
-    title: "Delightio",
-    category: "RESTAURANT",
-    image: delightio,
-    year: "2026",
-    description: "An interactive digital menu and reservation system for a modern fusion restaurant.",
-    longDescription: "Delightio reimagines the dining experience through a digital-first lens. The platform features an immersive interactive menu with real-time availability, a seamless table reservation system, and a backend dashboard for restaurant managers to handle orders and customer feedback efficiently.",
-    client: "Delightio Hospitality Group",
-    role: "UI/UX & Frontend Development",
-    stack: ["React", "Express", "Tailwind CSS", "Firebase"],
-    link: "https://https://delightio.vercel.app/"
+    link: "https://delightio.vercel.app/"
   }
 ];

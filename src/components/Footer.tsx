@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Github, Twitter, Linkedin, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import logo from "../assets/logo.png";
 
 
@@ -19,9 +19,8 @@ const footerLinks = {
   ],
   social: [
     { name: "GitHub", icon: Github, href: "https://github.com/Meta-Code-1" },
-    { name: "Twitter", icon: Twitter, href: "https://twitter.com" },
-    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
-    { name: "Instagram", icon: Instagram, href: "https://instagram.com" },
+    { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/metacode10/" },
+    { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/ayushkumar_112003/" },
   ],
 };
 
