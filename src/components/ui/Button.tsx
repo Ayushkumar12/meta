@@ -9,11 +9,19 @@ interface ButtonProps {
   className?: string;
   onClick?: () => void;
   variant?: "primary" | "secondary" | "outline";
+  type?: "button" | "submit" | "reset";
 }
 
-export function Button({ children, className, onClick, variant = "primary" }: ButtonProps) {
+export function Button({ 
+  children, 
+  className, 
+  onClick, 
+  variant = "primary",
+  type = "button"
+}: ButtonProps) {
   return (
     <motion.button
+      type={type}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}

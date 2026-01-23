@@ -1,5 +1,6 @@
 import mehryaan from "../assets/mehryaan.png";
 import delightio from "../assets/delightio.png";
+import brainbuildersabacus from "../assets/brainbuildersabacus.png";
 
 export const projects = [
   {
@@ -29,5 +30,19 @@ export const projects = [
     role: "UI/UX & Frontend Development",
     stack: ["React", "Express", "Tailwind CSS", "Firebase"],
     link: "https://delightio.vercel.app/"
+  },
+  {
+    id: "03",
+    slug: "exam portal",
+    title: "exam portal",
+    category: "Institute",
+    image: brainbuildersabacus,
+    year: "2026",
+    description: " A centralized administrative hub for managing student registrations, exam configurations, and academic results.",
+    longDescription: " The admin portal provides a robust suite of tools for educational administrators to efficiently manage the platform's core operations. It includes a streamlined dashboard for approving new student registrations, managing student data, and overseeing administrative accounts. Admins have full control over the examination lifecycle, including creating exams, managing question banks, controlling exam statuses (start/stop), and analyzing student results. Designed to simplify complex administrative workflows, the portal ensures operational efficiency and data accuracy in managing the entire educational ecosystem.",
+    client: "brain builders abacus",
+    role: "Frontend Development & backend Development",
+    stack: ["PHP", "MySQL", "JavaScript", "HTML", "CSS"],
+    link: "http://www.brainbuildersabacus.com/"
   }
 ];

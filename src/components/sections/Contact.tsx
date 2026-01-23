@@ -27,12 +27,36 @@ export function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("submitting");
-    setTimeout(() => {
-      setFormState("success");
-    }, 2000);
+    
+    try {
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormState("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        console.error('Submission failed');
+        setFormState("idle");
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setFormState("idle");
+    }
   };
 
   return (
@@ -82,6 +106,8 @@ export function Contact() {
                     <input
                       type="text"
                       required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-primary outline-none transition-colors"
                       placeholder="John Doe"
                     />
@@ -91,6 +117,8 @@ export function Contact() {
                     <input
                       type="email"
                       required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-primary outline-none transition-colors"
                       placeholder="john@example.com"
                     />
@@ -100,6 +128,8 @@ export function Contact() {
                     <textarea
                       required
                       rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-primary outline-none transition-colors resize-none"
                       placeholder="Tell us about your project..."
                     />
@@ -107,7 +137,7 @@ export function Contact() {
                   <Button
                     className="w-full"
                     variant="primary"
-                    onClick={() => { }} // Form handled by onSubmit
+                    type="submit"
                   >
                     {formState === "submitting" ? "SENDING..." : "SEND MESSAGE"}
                   </Button>

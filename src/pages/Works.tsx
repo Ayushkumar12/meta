@@ -2,10 +2,40 @@ import { projects } from "@/lib/projects";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { Helmet } from "react-helmet";
 
 export default function Works() {
   return (
     <div className="bg-black text-white pt-32 pb-20 min-h-screen">
+      <Helmet>
+          
+        <meta property="title" content="MetaCode | Future Digital Solutions - Premium Tech Agency" />
+
+
+        <meta property="og:title" content="MetaCode | Future Digital Solutions - Premium Tech Agency"/>
+
+        <meta name="robots" content="index, follow" />
+
+        <meta name="url" content="https://metacode.co.in/works" />
+
+        <meta
+          name="identifier-url"
+          content="https://metacode.co.in/works "
+        />
+
+        <meta name="revisit-after" content="1 days" />
+
+        <meta name="googlebot" content="index, follow" />
+
+        <link
+          rel="canonical"
+          href="https://metacode.co.in/"
+        />
+
+        <meta name="bingbot" content="index, follow" />
+
+        
+      </Helmet>
       <div className="container mx-auto px-6">
         <header className="mb-24">
           <motion.h1 

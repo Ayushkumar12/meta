@@ -1,9 +1,39 @@
 import { Contact as ContactSection } from "@/components/sections/Contact";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 export default function Contact() {
   return (
     <div className="bg-black pt-20">
+      <Helmet>
+          
+        <meta property="title" content="MetaCode | Future Digital Solutions - Premium Tech Agency" />
+
+
+        <meta property="og:title" content="MetaCode | Future Digital Solutions - Premium Tech Agency"/>
+
+        <meta name="robots" content="index, follow" />
+
+        <meta name="url" content="https://metacode.co.in/contact" />
+
+        <meta
+          name="identifier-url"
+          content="https://metacode.co.in/contact "
+        />
+
+        <meta name="revisit-after" content="1 days" />
+
+        <meta name="googlebot" content="index, follow" />
+
+        <link
+          rel="canonical"
+          href="https://metacode.co.in/"
+        />
+
+        <meta name="bingbot" content="index, follow" />
+
+        
+      </Helmet>
       <div className="container mx-auto px-6 pt-20 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

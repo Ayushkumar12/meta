@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "@/lib/gsap";
 import { Button } from "@/components/ui/Button";
 
@@ -51,11 +52,15 @@ export function Hero() {
           ))}
         </h1>
         <p className="text-lg md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto px-4">
-          We build stunning, award-winning digital experiences that push the boundaries of technology.
+          MetaCode build stunning, award-winning digital experiences that push the boundaries of technology.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full sm:w-auto">
-          <Button variant="primary" className="w-full sm:w-auto">Start a Project</Button>
-          <Button variant="outline" className="w-full sm:w-auto">Our Work</Button>
+          <Link to="/contact">
+            <Button variant="primary" className="w-full sm:w-auto">Start a Project</Button>
+          </Link>
+          <Link to="/works">
+            <Button variant="outline" className="w-full sm:w-auto">Our Work</Button>
+          </Link>
         </div>
       </div>
     </section>
