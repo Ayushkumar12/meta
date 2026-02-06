@@ -4,6 +4,7 @@ import gsap from "@/lib/gsap";
 import { services } from "@/lib/services";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 export default function ServiceDetail() {
   const { slug } = useParams();
@@ -53,6 +54,21 @@ export default function ServiceDetail() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-black text-white pt-32 pb-20">
+    <Helmet>
+      <meta property="title" content={`MetaCode | ${service.title} - Premium Tech Agency`} />
+      <meta property="og:title" content={`MetaCode | ${service.title} - Premium Tech Agency`} />
+      <meta name="robots" content="index, follow" />
+      <meta name="url" content={`https://metacode.co.in/services/${service.slug}`} />
+      <meta
+        name="identifier-url"
+        content={`https://metacode.co.in/services/${service.slug}`}
+      />
+      <meta name="revisit-after" content="1 days" />
+      <meta name="googlebot" content="index, follow" />
+      <link rel="canonical" href="https://metacode.co.in/" />
+
+      <meta name="bingbot" content="index, follow" />
+    </Helmet>
       <div className="container mx-auto px-6">
         <Link
           to="/services"

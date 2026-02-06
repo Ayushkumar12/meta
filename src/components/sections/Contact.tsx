@@ -36,9 +36,9 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("submitting");
-    
+
     try {
-      const response = await fetch('http://localhost:3001/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,11 +50,12 @@ export function Contact() {
         setFormState("success");
         setFormData({ name: "", email: "", message: "" });
       } else {
-        console.error('Submission failed');
+        console.error("Failed to submit form");
         setFormState("idle");
+        // Optional: Add error handling UI state here if needed
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
       setFormState("idle");
     }
   };

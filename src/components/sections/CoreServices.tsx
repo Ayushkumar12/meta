@@ -241,15 +241,15 @@ export function CoreServices() {
 
         {/* Header */}
         <div ref={titleRef} className="mb-20 md:mb-32 text-center md:text-left">
-          <h2 className="text-sm md:text-base font-bold tracking-[0.4em] text-primary uppercase mb-6 pl-1">
+          <h1 className="text-sm md:text-base font-bold tracking-[0.4em] text-primary uppercase mb-6 pl-1">
             Our Expertise
-          </h2>
-          <h3 className="text-5xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] tracking-tighter">
+          </h1>
+          <h2 className="text-5xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] tracking-tighter">
             CORE <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/20">
               SERVICES
             </span>
-          </h3>
+          </h2>
           <div className="mt-8 h-1 w-24 bg-primary md:mx-0 mx-auto rounded-full" />
         </div>
 
@@ -290,9 +290,9 @@ export function CoreServices() {
 
                   {/* Content */}
                   <div className="relative z-10">
-                    <h4 className="text-3xl font-bold text-white mb-6 group-hover:translate-x-2 transition-transform duration-300">
+                    <h3 className="text-3xl font-bold text-white mb-6 group-hover:translate-x-2 transition-transform duration-300">
                       {service.title}
-                    </h4>
+                    </h3>
                     <p className="text-gray-400 leading-relaxed text-lg mb-8">
                       {service.desc}
                     </p>

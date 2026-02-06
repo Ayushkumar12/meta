@@ -1,0 +1,56 @@
+# MetaCode | Future Digital Solutions - Premium Tech Agency
+
+> MetaCode is a premium tech agency based in India, specializing in high-performance web development, strategic branding, and custom digital solutions using cutting-edge technologies like React 19, Three.js, and GSAP.
+
+MetaCode is a premium tech agency in India delivering web development, branding, and custom digital solutions for modern businesses.
+
+## Company Overview
+- **Focus:** Web development, branding, and custom digital solutions
+- **Industries:** Technology
+- **Geography:** India
+- **Expertise:** Strong emphasis on innovation and tailored solutions for modern digital needs
+
+## Core Features/Services
+- [Homepage](https://metacode.co.in/): Discover MetaCode's premium tech offerings and innovative solutions.
+- [About Us](https://metacode.co.in/about): Learn about our mission, values, and commitment to delivering quality tech solutions.
+- [Services](https://metacode.co.in/services): Explore our diverse range of services, including web development and branding.
+- [Works](https://metacode.co.in/works): View our portfolio showcasing successful projects and impactful designs.
+- [Feedback](https://metacode.co.in/feedback): Read testimonials and share your experience with MetaCode.
+- [Contact](https://metacode.co.in/contact): Get in touch with us to discuss your tech needs or for inquiries.
+
+## Products/Solutions
+- **Web Development:** Tailored websites designed to enhance user engagement and drive conversions.
+- **Branding:** Strategic branding services to help businesses establish a strong market presence.
+- **Service Details:** Deep dive into specific offerings via `/services/:slug`.
+- **Project Showcase:** Detailed case studies of our work via `/works/:slug`.
+
+## Pricing
+Pricing information is available upon request through our [Contact](https://metacode.co.in/contact) page.
+
+## Resources and Support
+Further resources and client support information can be found on our website to assist you with your journey.
+
+## Tech Stack
+- **Framework:** React 19, TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** GSAP, Framer Motion
+- **3D Graphics:** Three.js (React Three Fiber)
+- **Routing:** React Router 7
+- **Bundler:** Vite
+
+## Company Information
+MetaCode is dedicated to delivering exceptional digital solutions to help businesses thrive in a competitive environment.
+
+## Legal Information
+For legal details regarding our services, please refer to our Terms and Privacy Policy on the relevant sections of our website.
+
+## Social Media Links
+- [GitHub](https://github.com/Meta-Code-1): Explore our open-source contributions and projects.
+- [LinkedIn](https://www.linkedin.com/company/metacode10/): Follow us for professional updates and industry insights.
+- [Instagram](https://www.instagram.com/ayushkumar_112003/): Stay connected with our latest designs and agency culture.
+
+## Language Options
+No multilingual support available at this time.
+
+## Getting Started
+Visit our [Homepage](https://metacode.co.in/) to begin exploring our expert tech solutions today!

@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import gsap from "@/lib/gsap";
 import { projects } from "@/lib/projects";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ProjectDetail() {
@@ -81,15 +81,6 @@ export default function ProjectDetail() {
               >
                 Live Preview
                 <ExternalLink size={18} />
-              </motion.a>
-              <motion.a
-                href="#"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold tracking-widest uppercase text-sm backdrop-blur-sm"
-              >
-                Source Code
-                <Github size={18} />
               </motion.a>
             </div>
           </div>
