@@ -4,6 +4,7 @@ import gsap from "@/lib/gsap";
 import { projects } from "@/lib/projects";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
+import { SEO } from "@/components/SEO";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -46,6 +47,12 @@ export default function ProjectDetail() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-black text-white pt-32 pb-20 overflow-hidden">
+      <SEO 
+        title={project.title} 
+        description={project.description} 
+        canonical={`/works/${project.slug}`}
+        ogImage={typeof project.image === 'string' ? project.image : (project.image as any).src}
+      />
       <div className="container mx-auto px-6">
         <Link
           to="/works"
@@ -70,19 +77,21 @@ export default function ProjectDetail() {
               {project.description}
             </p>
             
-            <div className="flex flex-wrap gap-4 animate-up">
-              <motion.a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 bg-primary text-black px-8 py-4 rounded-full font-bold tracking-widest uppercase text-sm shadow-[0_0_20px_rgba(0,212,255,0.3)]"
-              >
-                Live Preview
-                <ExternalLink size={18} />
-              </motion.a>
-            </div>
+            {project.link !== "#" && (
+              <div className="flex flex-wrap gap-4 animate-up">
+                <motion.a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-3 bg-primary text-black px-8 py-4 rounded-full font-bold tracking-widest uppercase text-sm shadow-[0_0_20px_rgba(0,212,255,0.3)]"
+                >
+                  Live Preview
+                  <ExternalLink size={18} />
+                </motion.a>
+              </div>
+            )}
           </div>
           
           <div className="order-1 lg:order-2 relative aspect-[4/3] rounded-[2rem] overflow-hidden project-image shadow-2xl">
@@ -96,38 +105,42 @@ export default function ProjectDetail() {
         </div>
 
         {/* Details Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-20 border-y border-white/10 mb-20">
-          <div className="animate-up">
-            <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Client</h3>
-            <p className="text-xl font-medium">{project.client}</p>
-          </div>
-          <div className="animate-up">
-            <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Role</h3>
-            <p className="text-xl font-medium">{project.role}</p>
-          </div>
-          <div className="animate-up">
-            <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Year</h3>
-            <p className="text-xl font-medium">{project.year}</p>
-          </div>
-          <div className="animate-up">
-            <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Stack</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((item) => (
-                <span key={item} className="text-sm bg-white/5 border border-white/10 px-3 py-1 rounded-full text-white/60">
-                  {item}
-                </span>
-              ))}
+        {project.type !== 'graphics' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-20 border-y border-white/10 mb-20">
+            <div className="animate-up">
+              <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Client</h3>
+              <p className="text-xl font-medium">{project.client}</p>
+            </div>
+            <div className="animate-up">
+              <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Role</h3>
+              <p className="text-xl font-medium">{project.role}</p>
+            </div>
+            <div className="animate-up">
+              <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Year</h3>
+              <p className="text-xl font-medium">{project.year}</p>
+            </div>
+            <div className="animate-up">
+              <h3 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase mb-4">Stack</h3>
+              <div className="flex flex-wrap gap-2">
+                {project.stack?.map((item) => (
+                  <span key={item} className="text-sm bg-white/5 border border-white/10 px-3 py-1 rounded-full text-white/60">
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Long Description */}
-        <div className="max-w-4xl mx-auto py-20">
-          <h2 className="text-4xl font-bold mb-12 animate-up">Project Overview</h2>
-          <div className="prose prose-invert prose-lg max-w-none text-white/60 leading-relaxed animate-up">
-            <p>{project.longDescription}</p>
+        {project.type !== 'graphics' && (
+          <div className="max-w-4xl mx-auto py-20">
+            <h2 className="text-4xl font-bold mb-12 animate-up">Project Overview</h2>
+            <div className="prose prose-invert prose-lg max-w-none text-white/60 leading-relaxed animate-up">
+              <p>{project.longDescription}</p>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Decorative elements */}
         <div 

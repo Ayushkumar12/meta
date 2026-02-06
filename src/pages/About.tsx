@@ -1,39 +1,15 @@
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet";
+import { SEO } from "@/components/SEO";
 
 export default function About() {
   return (
     <div className="pt-32 pb-20">
       <div className="container mx-auto px-6">
-        <Helmet>
-          
-        <meta property="title" content="MetaCode | Future Digital Solutions - Premium Tech Agency" />
-
-
-        <meta property="og:title" content="MetaCode | Future Digital Solutions - Premium Tech Agency"/>
-
-        <meta name="robots" content="index, follow" />
-
-        <meta name="url" content="https://metacode.co.in/about" />
-
-        <meta
-          name="identifier-url"
-          content="https://metacode.co.in/about"
+        <SEO 
+          title="About Us" 
+          description="We're a team of passionate creators, developers, and strategists dedicated to pushing the boundaries of what's possible in the digital realm." 
+          canonical="/about"
         />
-
-        <meta name="revisit-after" content="1 days" />
-
-        <meta name="googlebot" content="index, follow" />
-
-        <link
-          rel="canonical"
-          href="https://metacode.co.in/"
-        />
-
-        <meta name="bingbot" content="index, follow" />
-
-        
-      </Helmet>
         {/* Hero Section */}
         <div className="max-w-4xl mb-20">
           <motion.h1

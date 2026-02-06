@@ -5,13 +5,85 @@ import eduprime from "../assets/eduprime.png";
 import icoder from "../assets/icoder.png";
 import freshmeatwala from "../assets/freshmeatwala.png";
 import toolbox from "../assets/toolbox.png";
+import worldngoday from "../assets/worldngoday.png";
+import sponschild from "../assets/sponschild.png";
+import kids from "../assets/kids.png";
+import friday from "../assets/friday.png";
+import Wardrug from "../assets/Wardrug.jpeg";
+import kipling from "../assets/kipling.png";
+import cyber from "../assets/CYBER.jpeg";
+import kd1 from "../assets/kd1.png";
+import kd2 from "../assets/kd2.png";
+import kd3 from "../assets/kd3.png";
+import kd4 from "../assets/kd4.png";
 
 export const projects = [
   {
     id: "01",
+    slug: "KDMCH-1",
+    title: "KDMCH-1",
+    category: "Institute",
+    type: "website",
+    image: kd1,
+    year: "2026",
+    description: " Kanti Devi Medical College and Hospital-1 is a comprehensive web-based platform designed to provide information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    longDescription: " Kanti Devi Medical College and Hospital-1 is a comprehensive web-based platform that aggregates a wide range of information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    client: "Kanti Devi Medical College and Hospital",
+    role: "Frontend Development & backend Development",
+    stack: ["React", "tailwind CSS"],
+    link: "https://kd-college-2nd-website.vercel.app/"
+  },
+  {
+    id: "02",
+    slug: "KDMCH-2",
+    title: "KDMCH-2",
+    category: "Institute",
+    type: "website",
+    image: kd2,
+    year: "2026",
+    description: " Kanti Devi Medical College and Hospital-2 is a comprehensive web-based platform designed to provide information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    longDescription: " Kanti Devi Medical College and Hospital-2 is a comprehensive web-based platform that aggregates a wide range of information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    client: "Kanti Devi Medical College and Hospital",
+    role: "Frontend Development & backend Development",
+    stack: ["React", "tailwind CSS"],
+    link: "https://kanti-devi-college.vercel.app/"
+  },
+  {
+    id: "03",
+    slug: "KDMCH-3",
+    title: "KDMCH-3",
+    category: "Institute",
+    type: "website",
+    image: kd3,
+    year: "2026",
+    description: " Kanti Devi Medical College and Hospital-3 is a comprehensive web-based platform designed to provide information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    longDescription: " Kanti Devi Medical College and Hospital-3 is a comprehensive web-based platform that aggregates a wide range of information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    client: "Kanti Devi Medical College and Hospital",
+    role: "Frontend Development & backend Development",
+    stack: ["React", "tailwind CSS"],
+    link: "https://college-rosy.vercel.app/"
+  },
+  {
+    id: "04",
+    slug: "KDMCH-4",
+    title: "KDMCH-4",
+    category: "Institute",
+    type: "website",
+    image: kd4,
+    year: "2026",
+    description: " Kanti Devi Medical College and Hospital-4 is a comprehensive web-based platform designed to provide information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    longDescription: " Kanti Devi Medical College and Hospital-4 is a comprehensive web-based platform that aggregates a wide range of information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
+    client: "Kanti Devi Medical College and Hospital",
+    role: "Frontend Development & backend Development",
+    stack: ["React", "tailwind CSS"],
+    link: "https://resplendent-melomakarona-edf2c1.netlify.app/"
+  },  
+  {
+    id: "05",
     slug: "mehryaan",
     title: "Mehryaan",
     category: "E-COMMERCE",
+    type: "website",
     image: mehryaan,
     year: "2026",
     description: "A high-end luxury e-commerce platform designed for a seamless shopping experience.",
@@ -22,10 +94,11 @@ export const projects = [
     link: "https://mehryan-e-commerce.vercel.app/"
   },
   {
-    id: "02",
+    id: "06",
     slug: "delightio",
     title: "Delightio",
     category: "RESTAURANT",
+    type: "website",
     image: delightio,
     year: "2026",
     description: "An interactive digital menu and reservation system for a modern fusion restaurant.",
@@ -36,10 +109,11 @@ export const projects = [
     link: "https://delightio.vercel.app/"
   },
   {
-    id: "03",
+    id: "07",
     slug: "brainbuildersabacus",
     title: "brain builders abacus",
     category: "Institute",
+    type: "website",
     image: brainbuildersabacus,
     year: "2026",
     description: " A centralized administrative hub for managing student registrations, exam configurations, and academic results.",
@@ -50,10 +124,11 @@ export const projects = [
     link: "http://www.brainbuildersabacus.com/"
   },
   {
-    id: "04",
+    id: "08",
     slug: "eduprime",
     title: "EduPrime",
     category: "Education",
+    type: "website",
     image: eduprime,
     year: "2026",
     description: " EduPrime (Learning Management System) Developed a webbased LMS that enables students to access courses, learning materials, and educational resources and Teachers provide their live classes and recorded lecture through a clean and responsive interface. Designed to support organized learning, content management, and an enhanced digital education experience.",
@@ -64,10 +139,11 @@ export const projects = [
     link: "https://lms-sand-beta.vercel.app"
   },
   {
-    id: "05",
+    id: "09",
     slug: "iCoder",
     title: "iCoder",
     category: "Education",
+    type: "website",
     image: icoder,
     year: "2026",
     description: " iCoder Project is an innovative web-based platform designed to support programmers, learners, and technology enthusiasts by combining a coding practice environment with a comprehensive eBook library. It provides a one-stop solution for learning, practicing, and improving coding skills while also offering access to valuable study resources.",
@@ -78,10 +154,11 @@ export const projects = [
     link: "https://i-coder-a-coding-platform.vercel.app"
   },
   {
-    id: "06",
+    id: "10",
     slug: "Fresh Meat Wala",
     title: "Fresh Meat Wala",
     category: "Food",
+    type: "website",
     image: freshmeatwala,
     year: "2026",
     description: " FreshMeatWala (Online Non-veg Food Delivery website) is a premium hyperlocal delivery platform designed to connect meat lovers with trusted local vendors. We ensure that you get the freshest quality chicken, mutton, fish, and exotic meats delivered straight to your doorstep.",
@@ -92,10 +169,11 @@ export const projects = [
     link: "https://fresh-meat-wala.vercel.app"
   },
   {
-    id: "07",
+    id: "11",
     slug: "ToolBox ",
     title: "ToolBox",
     category: "Services",
+    type: "website",
     image: toolbox,
     year: "2026",
     description: " ToolBox a free web-based platform that provides multiple everyday digital tools in one place, helping users perform common tasks quickly through a clean, responsive, and user-friendly interface.",
@@ -104,5 +182,82 @@ export const projects = [
     role: "Frontend Development & backend Development",
     stack: ["React", "MongoDB", "Next", "tailwind CSS", "Express", "Cloudinary"],
     link: "https://tool-box-solution.vercel.app"
+  },
+  {
+    id: "12",
+    slug: "",
+    title: "",
+    category: "",
+    type: "graphics",
+    image: worldngoday,
+    year: " ",
+    description: "",
+    link: "#"
+  },
+  {
+    id: "13",
+    slug: " ",
+    title: " ",
+    category: " ",
+    type: "graphics",
+    image: sponschild,
+    year: " ",
+    description: " ",
+    link: "#"
+  },
+  {
+    id: "14",
+    slug: " ",
+    title: " ",
+    category: " ",
+    type: "graphics",
+    image: kids,
+    year: " ",
+    description: " ",
+    link: "#"
+  },
+  {
+    id: "15",
+    slug: " ",
+    title: " ",
+    category: " ",
+    type: "graphics",
+    image: friday,
+    year: " ",
+    description: " ",
+    link: "#"
+  },
+  {
+    id: "16",
+    slug: "",
+    title: "",
+    category: "",
+    type: "graphics",
+    image: Wardrug,
+    year: " ",
+    description: "",
+    link: "#"
+  },
+  {
+    id: "17",
+    slug: "",
+    title: "",
+    category: "",
+    type: "graphics",
+    image: cyber,
+    year: " ",
+    description: "",
+    link: "#"
+  },
+  {
+    id: "18",
+    slug: "",
+    title: "",
+    category: "",
+    type: "graphics",
+    image: kipling,
+    year: " ",
+    description: "",
+    link: "#"
   }
 ];

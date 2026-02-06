@@ -1,52 +1,50 @@
 import { Suspense, lazy } from "react";
-import { Helmet } from "react-helmet";
+import { SEO } from "@/components/SEO";
 
 const ParallaxCanvas = lazy(() => import("@/components/canvas/ParallaxCanvas").then(m => ({ default: m.ParallaxCanvas })));
 const Hero = lazy(() => import("@/components/sections/Hero").then(m => ({ default: m.Hero })));
 const CoreServices = lazy(() => import("@/components/sections/CoreServices").then(m => ({ default: m.CoreServices })));
 const Process = lazy(() => import("@/components/sections/Process").then(m => ({ default: m.Process })));
 const WhyChooseUs = lazy(() => import("@/components/sections/WhyChooseUs").then(m => ({ default: m.WhyChooseUs })));
+const WorkMarquee = lazy(() => import("@/components/sections/WorkMarquee").then(m => ({ default: m.WorkMarquee })));
 // const ClientFeedback = lazy(() => import("@/components/sections/ClientFeedback").then(m => ({ default: m.ClientFeedback })));
 const Contact = lazy(() => import("@/components/sections/Contact").then(m => ({ default: m.Contact })));
 
+import { projects } from "@/lib/projects";
+
 export default function Home() {
+  const websiteProjects = projects.filter(p => p.type === "website");
+  const graphicsProjects = projects.filter(p => p.type === "graphics");
+
   return (
     <Suspense fallback={null}>
       <ParallaxCanvas />
       <div className="relative z-10">
-        <Helmet>
-          
-        <meta property="title" content="MetaCode | Future Digital Solutions - Premium Tech Agency" />
-
-
-        <meta property="og:title" content="MetaCode | Future Digital Solutions - Premium Tech Agency"/>
-
-        <meta name="robots" content="index, follow" />
-
-        <meta name="url" content="https://metacode.co.in/" />
-
-        <meta
-          name="identifier-url"
-          content="https://metacode.co.in/ "
-        />
-
-        <meta name="revisit-after" content="1 days" />
-
-        <meta name="googlebot" content="index, follow" />
-
-        <link
-          rel="canonical"
-          href="https://metacode.co.in/"
-        />
-
-        <meta name="bingbot" content="index, follow" />
-
-        
-      </Helmet>
+      <SEO />
         <Hero />
         <CoreServices />
         <Process />
         <WhyChooseUs />
+        
+        <section className="bg-[#050505] pt-20">
+          <div className="max-w-7xl mx-auto px-6 mb-12">
+            <h1 className="text-sm md:text-base font-bold tracking-[0.4em] text-primary uppercase mb-6 pl-1">
+              Our Work
+            </h1>
+            <h2 className="text-5xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] tracking-tighter">
+              PORT<span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/20">FOLIO</span>
+            </h2>
+            <div className="mt-8 h-1 w-24 bg-primary rounded-full" />
+          </div>
+
+          {websiteProjects.length > 0 && (
+            <WorkMarquee projects={websiteProjects} />
+          )}
+          {graphicsProjects.length > 0 && (
+            <WorkMarquee projects={graphicsProjects} reverse isPortrait />
+          )}
+        </section>
+
         {/* <ClientFeedback /> */}
         <Contact />
       </div>

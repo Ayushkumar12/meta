@@ -1,41 +1,17 @@
 import { CoreServices } from "@/components/sections/CoreServices";
 import { Contact } from "@/components/sections/Contact";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet";
+import { SEO } from "@/components/SEO";
 
 export default function Services() {
   return (
     <div className="bg-black pt-20">
       <div className="container mx-auto px-6 pt-20 text-center">
-        <Helmet>
-          
-        <meta property="title" content="MetaCode | Future Digital Solutions - Premium Tech Agency" />
-
-
-        <meta property="og:title" content="MetaCode | Future Digital Solutions - Premium Tech Agency"/>
-
-        <meta name="robots" content="index, follow" />
-
-        <meta name="url" content="https://metacode.co.in/services" />
-
-        <meta
-          name="identifier-url"
-          content="https://metacode.co.in/services"
+        <SEO 
+          title="Services" 
+          description="We combine strategy, design, and technology to help brands and businesses deliver exceptional digital experiences." 
+          canonical="/services"
         />
-
-        <meta name="revisit-after" content="1 days" />
-
-        <meta name="googlebot" content="index, follow" />
-
-        <link
-          rel="canonical"
-          href="https://metacode.co.in/"
-        />
-
-        <meta name="bingbot" content="index, follow" />
-
-        
-      </Helmet>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
