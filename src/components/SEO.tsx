@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import logo from "../assets/logo.png";
 
 interface SEOProps {
   title?: string;
@@ -23,7 +22,7 @@ export const SEO = ({
   const metaDescription = description || defaultDescription;
   const url = "https://metacode.co.in";
   const fullCanonical = canonical ? `${url}${canonical}` : url;
-  const defaultOgImage = "https://metacode.co.in/assets/logo-DM748ReK.png";
+  const defaultOgImage = `${url}/logo.png`;
   const metaOgImage = ogImage || defaultOgImage;
 
   return (

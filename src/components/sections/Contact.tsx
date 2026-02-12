@@ -6,6 +6,7 @@ import gsap from "@/lib/gsap";
 import { Button } from "@/components/ui/Button";
 import { Send, Github, Twitter, Linkedin, Instagram } from "lucide-react";
 
+// Updated to resolve asset loading issues
 export function Contact() {
   const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
   const containerRef = useRef<HTMLDivElement>(null);

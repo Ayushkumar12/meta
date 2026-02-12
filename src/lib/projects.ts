@@ -4,18 +4,16 @@ import brainbuildersabacus from "../assets/brainbuildersabacus.png";
 import eduprime from "../assets/eduprime.png";
 import icoder from "../assets/icoder.png";
 import freshmeatwala from "../assets/freshmeatwala.png";
-import toolbox from "../assets/toolbox.png";
-import worldngoday from "../assets/worldngoday.png";
-import sponschild from "../assets/sponschild.png";
-import kids from "../assets/kids.png";
-import friday from "../assets/friday.png";
-import Wardrug from "../assets/Wardrug.jpeg";
-import kipling from "../assets/kipling.png";
-import cyber from "../assets/CYBER.jpeg";
+import toolbox from "../assets/utility-tools-suite.png";
+import worldngoday from "../assets/global-awareness-campaign.png";
+import sponschild from "../assets/ngo-sponsorship.png";
+import kids from "../assets/educational-platform.png";
+import friday from "../assets/social-event-promo.png";
+import Wardrug from "../assets/healthcare-system.jpeg";
+import kipling from "../assets/luxury-brand-design.png";
+import cyber from "../assets/security-operations.jpeg";
 import kd1 from "../assets/kd1.png";
 import kd2 from "../assets/kd2.png";
-import kd3 from "../assets/kd3.png";
-import kd4 from "../assets/kd4.png";
 
 export const projects = [
   {
@@ -48,36 +46,6 @@ export const projects = [
     stack: ["React", "tailwind CSS"],
     link: "https://kanti-devi-college.vercel.app/"
   },
-  {
-    id: "03",
-    slug: "KDMCH-3",
-    title: "KDMCH-3",
-    category: "Institute",
-    type: "website",
-    image: kd3,
-    year: "2026",
-    description: " Kanti Devi Medical College and Hospital-3 is a comprehensive web-based platform designed to provide information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
-    longDescription: " Kanti Devi Medical College and Hospital-3 is a comprehensive web-based platform that aggregates a wide range of information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
-    client: "Kanti Devi Medical College and Hospital",
-    role: "Frontend Development & backend Development",
-    stack: ["React", "tailwind CSS"],
-    link: "https://college-rosy.vercel.app/"
-  },
-  {
-    id: "04",
-    slug: "KDMCH-4",
-    title: "KDMCH-4",
-    category: "Institute",
-    type: "website",
-    image: kd4,
-    year: "2026",
-    description: " Kanti Devi Medical College and Hospital-4 is a comprehensive web-based platform designed to provide information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
-    longDescription: " Kanti Devi Medical College and Hospital-4 is a comprehensive web-based platform that aggregates a wide range of information about the medical college and hospital, including details about courses, faculty, facilities, and patient services.",
-    client: "Kanti Devi Medical College and Hospital",
-    role: "Frontend Development & backend Development",
-    stack: ["React", "tailwind CSS"],
-    link: "https://resplendent-melomakarona-edf2c1.netlify.app/"
-  },  
   {
     id: "05",
     slug: "mehryaan",

@@ -1,0 +1,17 @@
+name: Deploy to cPanel
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with: {node-version: '22.2'}
+    - run: npm ci
+    - run: npm run build
+    - uses: SamKirkland/FTP-Deploy-Action@4.3.4
+      with:
+        server: ${{ metacode.co.in }}
+        username: ${{ metacode@metacode.co.in }}  
+        password: ${{ IOGN1bZ$2a }}
+        server-dir: public_html/
