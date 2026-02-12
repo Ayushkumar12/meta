@@ -11,7 +11,7 @@ jobs:
     - run: npm run build
     - uses: SamKirkland/FTP-Deploy-Action@4.3.4
       with:
-        server: ${{ metacode.co.in }}
-        username: ${{ metacode@metacode.co.in }}  
+        server: ${{ ftp.metacode.co.in }}
+        username: ${{ metacode1@metacode.co.in }}  
         password: ${{ IOGN1bZ$2a }}
         server-dir: public_html/
