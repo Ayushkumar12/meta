@@ -7,25 +7,25 @@ const steps = [
   {
     id: "01",
     title: "Discovery",
-    desc: "We dive deep into your vision, target audience, and market goals to build a solid foundation.",
+    desc: "We dive deep into your vision, target audience, and market goals to build a solid foundation. This initial phase involves thorough research and stakeholder interviews to ensure we're aligned with your business objectives.",
     color: "#00f2ff",
   },
   {
     id: "02",
     title: "Strategy",
-    desc: "Crafting a tailored roadmap that combines innovation with practical execution strategies.",
+    desc: "Crafting a tailored roadmap that combines innovation with practical execution strategies. We define the user journey, information architecture, and technical stack to ensure a robust and scalable final product.",
     color: "#7000ff",
   },
   {
     id: "03",
     title: "Development",
-    desc: "Bringing concepts to life using cutting-edge technologies and pixel-perfect precision.",
+    desc: "Bringing concepts to life using cutting-edge technologies and pixel-perfect precision. Our developers write clean, maintainable code while our designers ensure every interaction is intuitive and visually stunning.",
     color: "#00f2ff",
   },
   {
     id: "04",
     title: "Delivery",
-    desc: "Rigorous testing followed by a seamless launch and ongoing optimization for success.",
+    desc: "Rigorous testing followed by a seamless launch and ongoing optimization for success. We don't just launch and leave; we monitor performance and provide continuous support to ensure your digital solution thrives.",
     color: "#7000ff",
   },
 ];

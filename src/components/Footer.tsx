@@ -114,6 +114,9 @@ export function Footer() {
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/40 text-sm">
             © {new Date().getFullYear()} MetaCode Agency. All rights reserved.
+            <a href="https://ayush-kumar-one.vercel.app/" className="hidden" target="_blank" >
+              Ayush Kumar
+            </a>
           </p>
           <div className="flex items-center gap-8">
             <Link to="/privacy" className="text-white/40 hover:text-white text-sm transition-colors">

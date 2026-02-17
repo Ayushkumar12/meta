@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "@/lib/gsap";
 import { Button } from "@/components/ui/Button";
+import { Link } from "react-router-dom";
 import { Send, Github, Twitter, Linkedin, Instagram } from "lucide-react";
 
 // Updated to resolve asset loading issues
@@ -68,7 +69,7 @@ export function Contact() {
           <div>
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-8">LET'S BUILD SOMETHING GREAT</h2>
             <p className="text-xl text-gray-400 mb-12 max-w-md">
-              Have a visionary project in mind? Our team is ready to bring your most ambitious ideas to life.
+              Have a <Link to="/works" className="text-white hover:text-primary transition-colors">visionary project</Link> in mind? Our team is ready to bring your most ambitious ideas to life.
             </p>
 
             <div className="flex gap-6">

@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import gsap, { ScrollTrigger } from "@/lib/gsap";
-import { Quote, Star } from "lucide-react";
+import { Quote, Star, ArrowRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -126,6 +127,18 @@ export function ClientFeedback() {
               </div>
             </div>
           ))}
+        </div>
+        
+        <div className="mt-20 text-center">
+          <Link 
+            to="/feedback"
+            className="inline-flex items-center gap-3 text-white/60 hover:text-primary transition-colors duration-300 group"
+          >
+            <span className="font-bold tracking-widest uppercase text-sm">View All Testimonials</span>
+            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-black transition-all duration-300">
+              <ArrowRight size={18} />
+            </div>
+          </Link>
         </div>
       </div>
     </section>

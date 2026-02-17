@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
+import { NoiseOverlay } from "@/components/ui/NoiseOverlay";
 
 // Pages
 const Home = lazy(() => import("@/pages/Home"));
@@ -36,7 +37,7 @@ export default function App() {
           <div className="relative min-h-screen bg-black text-white selection:bg-primary selection:text-black">
             <CustomCursor />
             <Navbar />
-            
+
             <main className="relative z-10">
               <Suspense fallback={null}>
                 <Routes>
@@ -61,6 +62,7 @@ export default function App() {
           </div>
         </SmoothScroll>
       )}
+      <NoiseOverlay />
     </>
   );
 }

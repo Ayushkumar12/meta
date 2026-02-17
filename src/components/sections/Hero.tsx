@@ -51,8 +51,8 @@ export function Hero() {
             </span>
           ))}
         </h1>
-        <p className="text-lg md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto px-4">
-          MetaCode build stunning, award-winning digital experiences that push the boundaries of technology.
+        <p className="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto px-4 leading-relaxed">
+          Crafting <Link to="/works" className="text-white hover:text-primary transition-colors">digital experiences</Link>, <Link to="/services" className="text-primary hover:underline">high-performance solutions</Link>, and <Link to="/services/full-stack-development" className="text-white hover:text-primary transition-colors">custom software</Link> for forward-thinking brands.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full sm:w-auto">
           <Link to="/contact">

@@ -36,7 +36,7 @@ export default function Works() {
             className="text-xl text-white/60 max-w-2xl leading-relaxed"
           >
             A curated collection of digital experiences we've crafted for forward-thinking clients 
-            and ambitious brands.
+            and ambitious brands. Each project is powered by our <Link to="/services" className="text-primary hover:underline">core services</Link>.
           </motion.p>
         </header>
 

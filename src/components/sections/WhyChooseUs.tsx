@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import gsap from "@/lib/gsap";
 import { CheckCircle2, Zap, Shield, Globe } from "lucide-react";
 
@@ -59,9 +60,11 @@ export function WhyChooseUs() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">DIGITAL STANDARD</span>
             </h2>
             <p className="text-xl text-gray-400 leading-relaxed mb-12 max-w-xl">
-              We don't just build websites; we create immersive digital experiences that drive growth and push technological boundaries.
+              We don't just build <Link to="/services/web-design" className="text-white hover:text-primary transition-colors">websites</Link>; we create immersive <Link to="/works" className="text-white hover:text-primary transition-colors">digital experiences</Link> that drive growth,
+              enhance user engagement, and push technological boundaries. <Link to="/about" className="text-primary hover:underline">Our approach</Link> combines
+              strategic thinking with world-class execution to deliver results that matter for your business.
             </p>
-            
+
             <div className="flex gap-4">
               <div className="h-1 w-20 bg-primary rounded-full" />
               <div className="h-1 w-8 bg-white/10 rounded-full" />
@@ -71,8 +74,8 @@ export function WhyChooseUs() {
 
           <div className="benefits-grid grid grid-cols-1 sm:grid-cols-2 gap-6">
             {benefits.map((benefit, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="benefit-card p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors duration-500 group"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary transition-all duration-500">

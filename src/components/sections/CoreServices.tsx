@@ -241,9 +241,9 @@ export function CoreServices() {
 
         {/* Header */}
         <div ref={titleRef} className="mb-20 md:mb-32 text-center md:text-left">
-          <h1 className="text-sm md:text-base font-bold tracking-[0.4em] text-primary uppercase mb-6 pl-1">
+          <h2 className="text-sm md:text-base font-bold tracking-[0.4em] text-primary uppercase mb-6 pl-1">
             Our Expertise
-          </h1>
+          </h2>
           <h2 className="text-5xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] tracking-tighter">
             CORE <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/20">

@@ -1,4 +1,4 @@
-# MetaCode | Future Digital Solutions - Premium Tech Agency
+# MetaCode
 
 > MetaCode is a premium tech agency based in India, specializing in high-performance web development, strategic branding, and custom digital solutions using cutting-edge technologies like React 19, Three.js, and GSAP.
 
