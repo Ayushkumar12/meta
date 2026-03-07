@@ -1,5 +1,9 @@
-import { motion } from "framer-motion";
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
 interface WorkMarqueeProps {
   projects: any[];
@@ -9,61 +13,61 @@ interface WorkMarqueeProps {
 }
 
 export function WorkMarquee({ projects, title, reverse = false, isPortrait = false }: WorkMarqueeProps) {
-  // Duplicate projects to create seamless loop
   const duplicatedProjects = [...projects, ...projects, ...projects, ...projects];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-60px" });
 
   return (
-    <section className={`py-10 bg-[#050505] overflow-hidden`}>
-      {title && (
-        <div className="container mx-auto px-6 mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-[1px] bg-primary" />
-            <p className="text-primary font-bold tracking-[0.5em] text-sm uppercase">{title}</p>
-          </div>
-        </div>
-      )}
+    <div
+      ref={containerRef}
+      className="py-6 bg-[#050508] overflow-hidden relative"
+    >
+      {/* Edge fades */}
+      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#050508] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#050508] to-transparent z-10 pointer-events-none" />
 
-      <div className="relative flex">
-        <motion.div
-          className="flex whitespace-nowrap gap-8 py-4"
-          animate={{
-            x: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
-          }}
-          transition={{
-            duration: 40,
-            ease: "linear",
-            repeat: Infinity,
-          }}
-        >
-          {duplicatedProjects.map((project, index) => (
-            <Link
-              key={`${project.id}-${index}`}
-              to={`/works/${project.slug}`}
-              className={`relative group ${
-                isPortrait 
-                  ? "w-[250px] md:w-[350px] aspect-[3/4]" 
-                  : "w-[300px] md:w-[450px] aspect-video"
-              } rounded-2xl overflow-hidden flex-shrink-0`}
-            >
-              <img
-                src={typeof project.image === 'string' ? project.image : (project.image as any).src}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                <div className="text-center">
-                  <h3 className="text-white text-xl md:text-2xl font-black uppercase tracking-tighter">
-                    {project.title}
-                  </h3>
-                  <p className="text-primary text-xs font-bold tracking-widest uppercase mt-2">
-                    {project.category}
-                  </p>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.6 }}
+        className="flex gap-5"
+        style={{
+          width: "max-content",
+          animation: `${reverse ? "marquee-reverse" : "marquee"} ${projects.length * 10}s linear infinite`,
+        }}
+      >
+        {duplicatedProjects.map((project, index) => (
+          <Link
+            key={`${project.id}-${index}`}
+            to={`/works/${project.slug}`}
+            className={`relative group shrink-0 rounded-2xl overflow-hidden ${isPortrait
+                ? "w-[240px] md:w-[320px] aspect-[3/4]"
+                : "w-[320px] md:w-[480px] aspect-video"
+              }`}
+          >
+            <img
+              src={typeof project.image === "string" ? project.image : (project.image as any).src}
+              alt={project.title}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+            {/* Hover Content */}
+            <div className="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-400">
+              <p className="label-sm text-primary mb-1">{project.category}</p>
+              <div className="flex items-center justify-between">
+                <h3 className="text-white text-lg font-bold tracking-tight">{project.title}</h3>
+                <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0">
+                  <ArrowUpRight size={16} className="text-white" />
                 </div>
               </div>
-            </Link>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+            </div>
+            {/* Border on hover */}
+            <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-primary/30 transition-colors duration-400" />
+          </Link>
+        ))}
+      </motion.div>
+    </div>
   );
 }

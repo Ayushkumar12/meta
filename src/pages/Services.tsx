@@ -1,47 +1,37 @@
+"use client";
+
 import { CoreServices } from "@/components/sections/CoreServices";
 import { Contact } from "@/components/sections/Contact";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
+import { Sparkles, ArrowDown } from "lucide-react";
 
 export default function Services() {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 400], [0, 100]);
+
   return (
-    <div className="bg-black pt-20">
-      <div className="container mx-auto px-6 pt-20 text-center">
-        <SEO 
-          title="Services" 
-          description="We combine strategy, design, and technology to help brands and businesses deliver exceptional digital experiences." 
-          canonical="/services"
-        />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-sm md:text-base font-bold tracking-[0.4em] text-primary uppercase mb-6">
-            Everything we do
-          </h2>
-          <h1 className="text-5xl md:text-8xl font-black text-white leading-tight tracking-tighter mb-8">
-            DIGITAL SOLUTIONS <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/40">
-              FOR MODERN PROBLEMS
-            </span>
-          </h1>
-          <p className="text-xl text-white/60 max-w-3xl mx-auto mb-8">
-            We combine strategy, design, and technology to help brands and businesses 
-            deliver exceptional digital experiences.
-          </p>
-          <div className="mb-16">
-            <Link to="/works" className="text-primary hover:underline font-semibold tracking-wider">
-              Explore Our Portfolio
-            </Link>
-          </div>
-        </motion.div>
+    <div className="bg-[#050508] relative overflow-hidden">
+      <SEO
+        title="Services | Premium Technical Expertise by MetaCode"
+        description="From full-stack development to creative brand design, discover how MetaCode uses cutting-edge tech to solve modern business problems."
+        canonical="/services"
+      />
+
+      {/* ── Background Patterns ── */}
+      <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute top-[5%] left-[-10%] w-[600px] h-[600px] rounded-full opacity-[0.05] blur-[150px]" style={{ background: "radial-gradient(circle, #6c63ff, transparent)" }} />
+        <div className="absolute bottom-[20%] right-[-5%] w-[500px] h-[500px] rounded-full opacity-[0.04] blur-[130px]" style={{ background: "radial-gradient(circle, #00f5c4, transparent)" }} />
       </div>
-      
-      <CoreServices />
-      
-      <div className="pb-20">
+
+
+      <div className="relative z-10">
+        <CoreServices />
+      </div>
+
+      <div className="relative z-10 section-padding-lg">
         <Contact />
       </div>
     </div>

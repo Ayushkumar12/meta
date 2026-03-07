@@ -1,0 +1,8 @@
+src/components/sections/CoreServices.tsx(6,16): error TS6133: 'ScrollTrigger' is declared but its value is never read.
+src/components/sections/WorkMarquee.tsx(15,41): error TS6133: 'title' is declared but its value is never read.
+src/lib/services.ts(1,28): error TS6133: 'Globe' is declared but its value is never read.
+src/pages/About.tsx(7,70): error TS6133: 'Layout' is declared but its value is never read.
+src/pages/Admin.tsx(9,60): error TS6133: 'RefreshCcw' is declared but its value is never read.
+src/pages/ProjectDetail.tsx(5,35): error TS6133: 'Sparkles' is declared but its value is never read.
+src/pages/ServiceDetail.tsx(6,18): error TS6133: 'AnimatePresence' is declared but its value is never read.
+src/pages/Services.tsx(6,1): error TS6133: 'Link' is declared but its value is never read.

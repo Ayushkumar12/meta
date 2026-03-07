@@ -12,10 +12,10 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
 }
 
-export function Button({ 
-  children, 
-  className, 
-  onClick, 
+export function Button({
+  children,
+  className,
+  onClick,
   variant = "primary",
   type = "button"
 }: ButtonProps) {

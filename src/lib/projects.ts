@@ -14,6 +14,10 @@ import kipling from "../assets/luxury-brand-design.png";
 import cyber from "../assets/security-operations.jpeg";
 import kd1 from "../assets/kd1.png";
 import kd2 from "../assets/kd2.png";
+import Sdc from "../assets/Seed Depot Canada.webp";
+import mfc from "../assets/medicosfamilyclinic.webp";
+import ya from "../assets/yoga-addicts.webp";
+import dbm from "../assets/D-BEST-MASSAGE.webp";
 
 export const projects = [
   {
@@ -227,5 +231,61 @@ export const projects = [
     year: " ",
     description: "",
     link: "#"
+  },
+  {
+    id: "19",
+    slug: "metacode-instagram",
+    title: "Seed Depot Canada",
+    category: "Social Media",
+    type: "social_media",
+    image: Sdc,
+    year: "2026",
+    description: "",
+    client: "MetaCode",
+    role: "Social Media",
+    stack: [],
+    link: "https://www.instagram.com/seeddepotcanada/"
+  },
+  {
+    id: "20",
+    slug: "metacode-instagram",
+    title: "medicos family clinic",
+    category: "Social Media",
+    type: "social_media",
+    image: mfc,
+    year: "2026",
+    description: "",
+    client: "MetaCode",
+    role: "Social Media",
+    stack: [],
+    link: "https://www.instagram.com/medicosfamilyclinic/"
+  },
+  {
+    id: "21",
+    slug: "metacode-instagram",
+    title: "Yoga Addicts",
+    category: "Social Media",
+    type: "social_media",
+    image: ya,
+    year: "2026",
+    description: "",
+    client: "MetaCode",
+    role: "Social Media",
+    stack: [],
+    link: "https://www.instagram.com/seeddepotcanada/"
+  },
+  {
+    id: "22",
+    slug: "metacode-instagram",
+    title: "D-BEST-MASSAGE",
+    category: "Social Media",
+    type: "social_media",
+    image: dbm,
+    year: "2026",
+    description: "",
+    client: "MetaCode",
+    role: "Social Media",
+    stack: [],
+    link: "https://www.instagram.com/dbestmassage/"
   }
 ];

@@ -67,22 +67,6 @@ export const services = [
   },
   {
     id: "05",
-    slug: "cloud-services",
-    title: "Cloud Services",
-    desc: "Deploying and managing scalable cloud infrastructure to ensure your application is always available.",
-    longDesc: "We help you leverage the power of the cloud to improve scalability, reliability, and cost-efficiency. Our cloud experts specialize in AWS, Azure, and Google Cloud, providing tailored solutions for hosting, data storage, and serverless computing.",
-    icon: Globe,
-    color: "#A29BFE",
-    features: [
-      "Cloud Migration",
-      "Serverless Computing",
-      "Infrastructure as Code",
-      "Auto-scaling Solutions",
-      "24/7 Monitoring"
-    ]
-  },
-  {
-    id: "06",
     slug: "web-design",
     title: "Web Design",
     desc: "Creating visually stunning, user-centric designs that tell a story and drive meaningful engagement.",

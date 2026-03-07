@@ -1,14 +1,11 @@
-import { Suspense, lazy } from "react";
 import { SEO } from "@/components/SEO";
-
-const ParallaxCanvas = lazy(() => import("@/components/canvas/ParallaxCanvas").then(m => ({ default: m.ParallaxCanvas })));
-const Hero = lazy(() => import("@/components/sections/Hero").then(m => ({ default: m.Hero })));
-const CoreServices = lazy(() => import("@/components/sections/CoreServices").then(m => ({ default: m.CoreServices })));
-const Process = lazy(() => import("@/components/sections/Process").then(m => ({ default: m.Process })));
-const WhyChooseUs = lazy(() => import("@/components/sections/WhyChooseUs").then(m => ({ default: m.WhyChooseUs })));
-const WorkMarquee = lazy(() => import("@/components/sections/WorkMarquee").then(m => ({ default: m.WorkMarquee })));
-const Contact = lazy(() => import("@/components/sections/Contact").then(m => ({ default: m.Contact })));
-
+import { ParallaxCanvas } from "@/components/canvas/ParallaxCanvas";
+import { Hero } from "@/components/sections/Hero";
+import { CoreServices } from "@/components/sections/CoreServices";
+import { Process } from "@/components/sections/Process";
+import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
+import { WorkMarquee } from "@/components/sections/WorkMarquee";
+import { Contact } from "@/components/sections/Contact";
 import { projects } from "@/lib/projects";
 
 export default function Home() {
@@ -16,28 +13,55 @@ export default function Home() {
   const graphicsProjects = projects.filter(p => p.type === "graphics");
 
   return (
-    <Suspense fallback={null}>
+    <>
       <ParallaxCanvas />
       <div className="relative z-10">
-      <SEO 
-        title="Future Digital Solutions" 
-        description="MetaCode is a premier tech agency specializing in high-end web development, creative branding, and innovative digital strategies for global brands."
-        canonical="/"
-      />
+        <SEO
+          title="Future Digital Solutions"
+          description="MetaCode is a premier tech agency specializing in high-end web development, creative branding, and innovative digital strategies for global brands."
+          canonical="/"
+        />
         <Hero />
         <CoreServices />
         <Process />
         <WhyChooseUs />
-        
-        <section className="bg-[#050505] pt-20">
-          <div className="max-w-7xl mx-auto px-6 mb-12">
-            <h2 className="text-sm md:text-base font-bold tracking-[0.4em] text-primary uppercase mb-6 pl-1">
-              Our Work
-            </h2>
-            <h2 className="text-5xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] tracking-tighter">
-              PORT<span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/20">FOLIO</span>
-            </h2>
-            <div className="mt-8 h-1 w-24 bg-primary rounded-full" />
+
+        {/* ── Portfolio Section ── */}
+        <section className="bg-[#050508] section-padding overflow-hidden">
+          <div className="container-lg mb-14">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div>
+                <div className="pill mb-5">Our Work</div>
+                <h2
+                  className="font-black text-white"
+                  style={{ fontSize: "clamp(2.5rem, 7vw, 7rem)", lineHeight: 0.9, letterSpacing: "-0.035em" }}
+                >
+                  PORT
+                  <span
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.18) 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    FOLIO
+                  </span>
+                </h2>
+              </div>
+              <a
+                href="/works"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-white/40 hover:text-primary transition-colors mb-2 md:mb-0 shrink-0"
+              >
+                View All Projects
+                <div className="w-7 h-7 rounded-full border border-white/10 group-hover:border-primary/40 group-hover:bg-primary/10 flex items-center justify-center transition-all duration-300">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              </a>
+            </div>
+            <div className="mt-8 h-px" style={{ background: "linear-gradient(90deg, rgba(108,99,255,0.4), rgba(0,245,196,0.3), transparent)" }} />
           </div>
 
           {websiteProjects.length > 0 && (
@@ -50,6 +74,6 @@ export default function Home() {
 
         <Contact />
       </div>
-    </Suspense>
+    </>
   );
 }

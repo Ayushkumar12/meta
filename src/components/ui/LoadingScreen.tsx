@@ -64,7 +64,7 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
                 className="mb-8"
               >
                 <div className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
-                  MetaCode<span className="text-primary">.</span>
+                  MetaCode<span className="text-primary"></span>
                 </div>
               </motion.div>
 
