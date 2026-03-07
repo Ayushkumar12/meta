@@ -4,36 +4,36 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-import { ArrowRight, Target, Zap, Users, Award, Sparkles, Code, Cpu, Microscope } from "lucide-react";
+import { ArrowRight, Target, Zap, Users, Award, Sparkles } from "lucide-react";
 import { AboutBackground } from "@/components/sections/AboutBackground";
 
 const STATS = [
-  { icon: Users, label: "Global Clients", value: 120, suffix: "+" },
-  { icon: Target, label: "Pixels Pushed", value: 45, suffix: "M+" },
-  { icon: Zap, label: "Digital Awards", value: 12, suffix: "" },
-  { icon: Award, label: "Years in Voids", value: 8, suffix: "+" },
+  { icon: Users, label: "Projects Shipped", value: 20, suffix: "+" },
+  { icon: Target, label: "Client Satisfaction", value: 98, suffix: "%" },
+  { icon: Zap, label: "Studio Experience", value: 2, suffix: "+ Years" },
+  { icon: Award, label: "Avg ROI Delivered", value: 3, suffix: "X" },
 ];
 
-const VALUES = [
-  {
-    title: "Radical Innovation",
-    desc: "We don't follow trends; we set them. Constantly exploring the bleeding edge of tech to keep our clients ahead of the curve.",
-    icon: Microscope,
-    color: "#6c63ff"
-  },
-  {
-    title: "Deep Collaboration",
-    desc: "Our clients are our partners. Transparency and integrated workflows ensure every project reflects a shared vision.",
-    icon: Cpu,
-    color: "#00f5c4"
-  },
-  {
-    title: "Absolute Integrity",
-    desc: "Trust is built through honest communication and unwavering commitment to quality. We ship what we promise.",
-    icon: Code,
-    color: "#ff4d6d"
-  }
-];
+// const VALUES = [
+//   {
+//     title: "Radical Innovation",
+//     desc: "We don't follow trends; we set them. Constantly exploring the bleeding edge of tech to keep our clients ahead of the curve.",
+//     icon: Microscope,
+//     color: "#6c63ff"
+//   },
+//   {
+//     title: "Deep Collaboration",
+//     desc: "Our clients are our partners. Transparency and integrated workflows ensure every project reflects a shared vision.",
+//     icon: Cpu,
+//     color: "#00f5c4"
+//   },
+//   {
+//     title: "Absolute Integrity",
+//     desc: "Trust is built through honest communication and unwavering commitment to quality. We ship what we promise.",
+//     icon: Code,
+//     color: "#ff4d6d"
+//   }
+// ];
 
 
 function AnimatedCounter({ end, suffix, active }: { end: number; suffix: string; active: boolean }) {
@@ -133,7 +133,7 @@ export default function About() {
             <div className="absolute top-0 right-0 p-12 text-primary/5 pointer-events-none">
               <Target size={200} strokeWidth={0.5} className="group-hover:scale-110 group-hover:rotate-6 transition-transform duration-1000" />
             </div>
-            <h2 className="text-5xl font-black text-white mb-10 tracking-tighter">North <br /><span className="gradient-text">Star</span></h2>
+            <h2 className="text-5xl font-black text-white mb-10 tracking-tighter">Mission</h2>
             <p className="text-white/40 text-xl leading-relaxed relative z-10 max-w-lg">
               To redefine digital ecosystems through <span className="text-white font-medium italic underline underline-offset-8 decoration-primary/30">absolute precision</span>.
               We don't build websites; we craft interactive narratives that solidify brand authority in the cosmic digital void.
@@ -150,7 +150,7 @@ export default function About() {
             <div className="absolute top-0 right-0 p-12 text-accent/5 pointer-events-none">
               <Sparkles size={200} strokeWidth={0.5} className="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-1000" />
             </div>
-            <h2 className="text-5xl font-black text-white mb-10 tracking-tighter">Vortex <br /><span className="text-accent underline decoration-accent/20">Pulse</span></h2>
+            <h2 className="text-5xl font-black text-white mb-10 tracking-tighter">Vision</h2>
             <p className="text-white/40 text-xl leading-relaxed relative z-10 max-w-lg">
               To be the catalyst for the next generation of human-digital interaction.
               We envision a web where technology vanishes, leaving only <span className="text-white font-medium">unfiltered emotion</span> and <span className="text-white font-medium">hyper-performance</span> behind.
@@ -158,39 +158,6 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* ── Section 4: Execution DNA (Values) ── */}
-        <div className="mb-48 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="pill mb-10 mx-auto">Foundational DNA</div>
-            <h2 className="display-md text-white mb-24 max-w-4xl mx-auto leading-[0.9] tracking-tighter">
-              Built on <span className="gradient-text">Absolute</span> Principles.
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            {VALUES.map((v, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.2 }}
-                className="p-12 rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1] transition-all duration-500 relative group overflow-hidden"
-              >
-                <div className="absolute top-[-20%] right-[-10%] opacity-[0.05] group-hover:opacity-10 transition-opacity duration-500">
-                  <v.icon size={150} color={v.color} strokeWidth={1} />
-                </div>
-                <h3 className="text-3xl font-black text-white mb-6 group-hover:text-primary transition-colors">{v.title}</h3>
-                <p className="text-white/40 text-lg leading-relaxed">{v.desc}</p>
-                <div className="mt-10 h-1 w-12 bg-primary/20 group-hover:w-full transition-all duration-1000" style={{ background: v.color }} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
         {/* ── Section 5: The Humans (Team) ── */}
         {/* <div className="mb-48">
