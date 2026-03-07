@@ -3,7 +3,7 @@
 import { useParams, Link } from "react-router-dom";
 import { services } from "@/lib/services";
 import { ArrowLeft, CheckCircle2, Sparkles, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { SEO } from "@/components/SEO";
 
 export default function ServiceDetail() {

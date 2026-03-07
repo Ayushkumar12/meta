@@ -56,7 +56,7 @@ export default function Blog() {
                         </div>
                         <h1 className="display-lg text-white mb-10 leading-[0.85]">
                             Insights from the <br />
-                            <span className="gradient-text">Digital Forge.</span>
+                            <span className="gradient-text">Digital digital solutions provider.</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-white/40 leading-relaxed max-w-2xl">
                             Mapping the intersections of spatial computing, neuro-aesthetics, and recursive design.
@@ -76,7 +76,7 @@ export default function Blog() {
                     <div className="flex flex-col items-center justify-center py-40 gap-6">
                         <AlertCircle className="w-12 h-12 text-red-400" />
                         <p className="text-white/40 font-bold uppercase tracking-widest text-sm">
-                            Could not reach the forge. {error}
+                            Could not reach the digital solutions provider. {error}
                         </p>
                     </div>
                 )}
@@ -154,7 +154,7 @@ export default function Blog() {
                 {/* ── Empty State ── */}
                 {!loading && !error && blogs.length === 0 && (
                     <div className="py-40 text-center border border-dashed border-white/10 rounded-[3rem]">
-                        <p className="text-white/20 text-xl font-black uppercase tracking-[.5em]">The forge is quiet.</p>
+                        <p className="text-white/20 text-xl font-black uppercase tracking-[.5em]">The digital solutions provider is quiet.</p>
                     </div>
                 )}
             </div>

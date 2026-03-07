@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
-import gsap, { ScrollTrigger } from "@/lib/gsap";
+import gsap from "@/lib/gsap";
 import { services } from "@/lib/services";
 import { ArrowUpRight } from "lucide-react";
 

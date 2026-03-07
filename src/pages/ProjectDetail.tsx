@@ -2,7 +2,7 @@
 
 import { useParams, Link } from "react-router-dom";
 import { projects } from "@/lib/projects";
-import { ArrowLeft, ExternalLink, Sparkles, MoveRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, MoveRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SEO } from "@/components/SEO";
 import { useRef } from "react";

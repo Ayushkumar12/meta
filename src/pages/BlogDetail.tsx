@@ -183,7 +183,7 @@ export default function BlogDetail() {
                         <div>
                             <p className="text-white/20 text-[10px] uppercase font-black tracking-[.8em] mb-8">Explore More</p>
                             <h2 className="text-4xl font-black text-white max-w-lg mb-12">
-                                More from the <br /> Digital Forge.
+                                More from the <br /> Digital digital solutions provider.
                             </h2>
                             <Link
                                 to="/blog"

@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-import { ArrowRight, Target, Zap, Users, Award, Sparkles, Code, Cpu, Layout, Microscope } from "lucide-react";
+import { ArrowRight, Target, Zap, Users, Award, Sparkles, Code, Cpu, Microscope } from "lucide-react";
 import { AboutBackground } from "@/components/sections/AboutBackground";
 
 const STATS = [
@@ -35,11 +35,6 @@ const VALUES = [
   }
 ];
 
-const TEAM = [
-  { name: "Siddhartha", role: "Visionary Lead", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" },
-  { name: "Xavier", role: "Creative Overlord", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop" },
-  { name: "Elena", role: "Logic Architect", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" }
-];
 
 function AnimatedCounter({ end, suffix, active }: { end: number; suffix: string; active: boolean }) {
   const [count, setCount] = useState(0);
@@ -100,7 +95,7 @@ export default function About() {
               <span className="text-white/20">Digital Engagement.</span>
             </motion.h1>
             <motion.p custom={2} variants={staggerFade} className="text-xl md:text-3xl text-white/40 leading-relaxed max-w-3xl">
-              MetaCode isn't just an agency — it's a <span className="text-white/80 font-medium">digital forge</span>.
+              MetaCode isn't just an agency — it's a <span className="text-white/80 font-medium">digital solutions provider</span>.
               We exist at the intersection of pixel-level curiosity and world-scale impact.
             </motion.p>
           </motion.div>

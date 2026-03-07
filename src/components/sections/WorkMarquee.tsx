@@ -7,12 +7,11 @@ import { ArrowUpRight } from "lucide-react";
 
 interface WorkMarqueeProps {
   projects: any[];
-  title?: string;
   reverse?: boolean;
   isPortrait?: boolean;
 }
 
-export function WorkMarquee({ projects, title, reverse = false, isPortrait = false }: WorkMarqueeProps) {
+export function WorkMarquee({ projects, reverse = false, isPortrait = false }: WorkMarqueeProps) {
   const duplicatedProjects = [...projects, ...projects, ...projects, ...projects];
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-60px" });
@@ -41,8 +40,8 @@ export function WorkMarquee({ projects, title, reverse = false, isPortrait = fal
             key={`${project.id}-${index}`}
             to={`/works/${project.slug}`}
             className={`relative group shrink-0 rounded-2xl overflow-hidden ${isPortrait
-                ? "w-[240px] md:w-[320px] aspect-[3/4]"
-                : "w-[320px] md:w-[480px] aspect-video"
+              ? "w-[240px] md:w-[320px] aspect-[3/4]"
+              : "w-[320px] md:w-[480px] aspect-video"
               }`}
           >
             <img

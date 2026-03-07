@@ -277,7 +277,7 @@ function DashboardView({ blogCount, unreadCount, totalMessages, setView }: { blo
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
-                <StatCard label="Journal Voices" value={blogCount} icon={FileText} color="#6c63ff" sub="Published insights in the digital forge" />
+                <StatCard label="Journal Voices" value={blogCount} icon={FileText} color="#6c63ff" sub="Published insights in the digital digital solutions provider" />
                 <StatCard label="Unread Messages" value={unreadCount} icon={Mail} color="#00f5c4" sub="Awaiting your attention in the inbox" />
                 <StatCard label="Total Messages" value={totalMessages} icon={Users} color="#ff6b9d" sub="Across all channels and inquiries" />
             </div>
@@ -592,7 +592,7 @@ function BlogsView() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 md:mb-12">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-black text-white tracking-tighter mb-2">Journal <span className="gradient-text">Manager.</span></h1>
-                    <p className="text-white/30 font-medium">{blogs.length} insights archived in the digital forge</p>
+                    <p className="text-white/30 font-medium">{blogs.length} insights archived in the digital digital solutions provider</p>
                 </div>
                 <motion.button
                     whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
@@ -670,7 +670,7 @@ function BlogsView() {
                         <div className="py-24 text-center rounded-[2.5rem] border border-dashed border-white/10">
                             <FileText size={40} className="mx-auto text-white/10 mb-6" />
                             <p className="text-white/20 font-black uppercase tracking-[0.6em] text-sm">
-                                {searchQuery ? "No entries match your search." : "The forge is silent. Create the first entry."}
+                                {searchQuery ? "No entries match your search." : "The digital solutions provider is silent. Create the first entry."}
                             </p>
                         </div>
                     )}

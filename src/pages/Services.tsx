@@ -2,14 +2,9 @@
 
 import { CoreServices } from "@/components/sections/CoreServices";
 import { Contact } from "@/components/sections/Contact";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-import { Sparkles, ArrowDown } from "lucide-react";
 
 export default function Services() {
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 400], [0, 100]);
 
   return (
     <div className="bg-[#050508] relative overflow-hidden">

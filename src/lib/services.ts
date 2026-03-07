@@ -1,4 +1,4 @@
-import { Code, Cpu, Cloud, Globe, Smartphone, Palette } from "lucide-react";
+import { Code, Cpu, Cloud, Smartphone, Palette } from "lucide-react";
 
 export const services = [
   {
