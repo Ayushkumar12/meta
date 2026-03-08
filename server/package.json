@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --max-old-space-size=2048 index.js",
-    "dev": "node --max-old-space-size=2048 index.js",
-    "memory-check": "node --max-old-space-size=2048 -e 'console.log(`Max Heap Limit: ${require(\"v8\").getHeapStatistics().heap_size_limit / 1024 / 1024} MB`)'",
+    "start": "node index.js",
+    "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,7 +14,7 @@
   "type": "commonjs",
   "dependencies": {
     "bcryptjs": "^3.0.3",
-    "cloudinary": "^1.41.3",
+    "cloudinary": "^2.9.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
@@ -24,7 +23,7 @@
     "mongoose": "^9.2.4",
     "morgan": "^1.10.1",
     "multer": "^2.1.1",
-    "multer-storage-cloudinary": "^4.0.0"
+    "multer-storage-cloudinary": "^2.2.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
