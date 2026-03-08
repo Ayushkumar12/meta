@@ -11,6 +11,7 @@ exports.getBlogs = async (req, res) => {
 
         const blogs = await Blog.find(query)
             .sort({ createdAt: -1 })
+            .select('-content')
             .skip(skip)
             .limit(limit);
 
