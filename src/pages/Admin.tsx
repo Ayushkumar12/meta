@@ -113,7 +113,10 @@ function LoginScreen({ onLogin }: { onLogin: (user: any) => void }) {
                             First time?{" "}
                             <button
                                 type="button"
-                                onClick={() => fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000/api"}/auth/setup`, { method: "POST" }).then(() => alert("Admin account seeded! Try logging in now."))}
+                                onClick={() => {
+                                    const base = window.location.hostname === "localhost" ? "http://localhost:5000/api" : "https://back.metacode.co.in/api";
+                                    fetch(`${base}/auth/setup`, { method: "POST" }).then(() => alert("Admin account seeded! Try logging in now."));
+                                }}
                                 className="text-primary underline"
                             >
                                 Setup admin account

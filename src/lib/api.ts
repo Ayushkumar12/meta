@@ -1,10 +1,11 @@
 /**
  * MetaCode API Client
  * Centralised fetch wrapper for all backend calls.
- * Base URL is configurable via VITE_API_URL env var.
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const BASE_URL = typeof window !== "undefined" && window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://back.metacode.co.in/api";
 
 function getToken(): string | null {
     return localStorage.getItem("metacode_admin_token");
@@ -16,9 +17,13 @@ async function request<T>(
 ): Promise<T> {
     const token = getToken();
     const headers: Record<string, string> = {
-        "Content-Type": "application/json",
         ...(options.headers as Record<string, string>),
     };
+
+    // Only add Content-Type if there's a body and it's not already set
+    if (options.body && !headers["Content-Type"] && !(options.body instanceof FormData)) {
+        headers["Content-Type"] = "application/json";
+    }
 
     if (token) headers["Authorization"] = `Bearer ${token}`;
 
