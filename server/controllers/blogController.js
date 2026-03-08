@@ -6,7 +6,7 @@ exports.getBlogs = async (req, res) => {
     try {
         const query = req.query.published ? { published: req.query.published === 'true' } : {};
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
+        const limit = Math.min(parseInt(req.query.limit) || 10, 100);
         const skip = (page - 1) * limit;
 
         const blogs = await Blog.find(query)

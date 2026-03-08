@@ -17,6 +17,12 @@ const startServer = async () => {
             console.log(`Server is running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
             console.log(`Access the API at: http://localhost:${PORT}/api`);
             console.log(`Health check: http://localhost:${PORT}/health`);
+
+            const used = process.memoryUsage();
+            console.log('--- Startup Memory Usage ---');
+            for (let key in used) {
+                console.log(`${key}: ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
+            }
         });
     } catch (error) {
         console.error('Critical Error Starting Server:', error.message);

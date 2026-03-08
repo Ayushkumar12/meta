@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node index.js",
+    "start": "node --max-old-space-size=2048 index.js",
+    "dev": "node --max-old-space-size=2048 index.js",
+    "memory-check": "node --max-old-space-size=2048 -e 'console.log(`Max Heap Limit: ${require(\"v8\").getHeapStatistics().heap_size_limit / 1024 / 1024} MB`)'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

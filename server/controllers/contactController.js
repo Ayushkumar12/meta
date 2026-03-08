@@ -19,7 +19,7 @@ exports.getContacts = async (req, res) => {
         if (req.query.unread === 'true') query.read = false;
 
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
+        const limit = Math.min(parseInt(req.query.limit) || 10, 100);
         const skip = (page - 1) * limit;
 
         const contacts = await Contact.find(query)
