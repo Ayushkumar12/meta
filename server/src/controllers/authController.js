@@ -1,106 +1,110 @@
+const asyncHandler = require('express-async-handler');
+const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-
-// @desc    Register user
-// @route   POST /api/auth/register
-// @access  Public
-exports.register = async (req, res, next) => {
-  const { name, email, password } = req.body;
-
-  try {
-    // Check if user exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ success: false, message: 'User already exists' });
-    }
-
-    // Create user
-    const user = await User.create({ name, email, password });
-    sendTokenResponse(user, 201, res);
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
-};
 
 // @desc    Login user
 // @route   POST /api/auth/login
 // @access  Public
-exports.login = async (req, res, next) => {
+exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
+  // Validate email & password
   if (!email || !password) {
-    return res.status(400).json({ success: false, message: 'Please provide email and password' });
+    return next(new ErrorResponse('Please provide an email and password', 400));
   }
 
-  try {
-    // Check user
-    const user = await User.findOne({ email }).select('+password');
-    if (!user) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
-    }
+  // Check for user
+  const user = await User.findOne({ email }).select('+password');
 
-    // Check password
-    const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
-    }
-
-    sendTokenResponse(user, 200, res);
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+  if (!user) {
+    return next(new ErrorResponse('Invalid credentials', 401));
   }
-};
+
+  // Check if password matches
+  const isMatch = await user.matchPassword(password);
+
+  if (!isMatch) {
+    return next(new ErrorResponse('Invalid credentials', 401));
+  }
+
+  // Create token
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: '30d'
+  });
+
+  res.status(200).json({
+    success: true,
+    token,
+    admin: {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role
+    }
+  });
+});
 
 // @desc    Get current logged in user
 // @route   GET /api/auth/me
 // @access  Private
-exports.getMe = async (req, res, next) => {
+exports.getMe = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  res.status(200).json({ success: true, data: user });
-};
 
-// @desc    Setup admin (first time only)
+  res.status(200).json({
+    success: true,
+    admin: {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role
+    }
+  });
+});
+
+// @desc    Setup initial admin
 // @route   POST /api/auth/setup
 // @access  Public
-exports.setupAdmin = async (req, res, next) => {
-  try {
-    // Check if admin already exists
-    const adminExists = await User.findOne({ role: 'admin' });
-    if (adminExists) {
-      return res.status(400).json({ success: false, message: 'Admin already setup' });
-    }
-
-    // Get credentials from .env
-    const name = "System Admin";
-    const email = process.env.ADMIN_EMAIL;
-    const password = process.env.ADMIN_PASSWORD;
-
-    if (!email || !password) {
-        return res.status(500).json({ success: false, message: 'Admin credentials not configured in .env' });
-    }
-
-    const admin = await User.create({
-      name,
-      email,
-      password,
-      role: 'admin'
-    });
-
-    res.status(201).json({ success: true, message: 'Admin setup successful' });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+exports.setupAdmin = asyncHandler(async (req, res, next) => {
+  const userCount = await User.countDocuments();
+  
+  if (userCount > 0) {
+    return next(new ErrorResponse('Admin already established', 400));
   }
-};
 
-// Helper function to get token from model, create cookie and send response
-const sendTokenResponse = (user, statusCode, res) => {
-  // Create token
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN
+  const admin = await User.create({
+    name: 'Admin',
+    email: 'admin@metacode.co.in',
+    password: 'password123',
+    role: 'admin'
   });
 
-  res.status(statusCode).json({
+  res.status(201).json({
     success: true,
-    token
+    message: 'Admin created successfully. Please login with admin@metacode.co.in / password123'
   });
-};
+});
+
+// @desc    Create a new user
+// @route   POST /api/auth/users
+// @access  Private/Admin
+exports.createUser = asyncHandler(async (req, res, next) => {
+  const { name, email, password, role } = req.body;
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+    role
+  });
+
+  res.status(201).json({
+    success: true,
+    user: {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role
+    }
+  });
+});
