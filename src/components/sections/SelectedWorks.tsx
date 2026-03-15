@@ -1,17 +1,31 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "@/lib/gsap";
 import { motion } from "framer-motion";
-import { ExternalLink, ArrowRight } from "lucide-react";
-import { projects } from "@/lib/projects";
+import { ExternalLink, ArrowRight, Loader2 } from "lucide-react";
+import { projectApi, Project } from "@/lib/api";
 
 export function SelectedWorks() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [apiProjects, setApiProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    projectApi.getAll()
+      .then((res) => {
+        // Take first 5 projects for "Selected" works
+        setApiProjects(res.projects.slice(0, 5));
+      })
+      .catch((err) => console.error("Failed to fetch projects:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    if (loading || apiProjects.length === 0) return;
+
     const section = sectionRef.current;
     const scroll = scrollRef.current;
     if (!section || !scroll) return;
@@ -97,7 +111,15 @@ export function SelectedWorks() {
     }, section);
 
     return () => ctx.revert();
-  }, []);
+  }, [loading, apiProjects]);
+
+  if (loading) {
+    return (
+      <div className="h-screen bg-[#050505] flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-primary animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <section ref={sectionRef} className="relative bg-[#050505] overflow-hidden">
@@ -117,9 +139,9 @@ export function SelectedWorks() {
           </h2>
         </div>
 
-        {projects.map((p, i) => (
+        {apiProjects.map((p, i) => (
           <div
-            key={i}
+            key={p._id}
             className="project-card-new flex-shrink-0 w-[85vw] md:w-[1100px] h-[50vh] md:h-[80vh] relative group"
           >
             {/* Project Number */}
@@ -130,7 +152,7 @@ export function SelectedWorks() {
             {/* Image Container */}
             <div className="relative w-full h-full overflow-hidden rounded-2xl md:rounded-3xl z-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5 bg-white/5">
               <img
-                src={typeof p.image === 'string' ? p.image : (p.image as any).src}
+                src={p.image}
                 alt={p.title}
                 className="project-img absolute inset-0 w-full h-full object-contain md:object-cover transition-transform duration-700 md:group-hover:scale-105"
               />
@@ -174,15 +196,19 @@ export function SelectedWorks() {
         {/* Ending Card */}
         <div className="flex-shrink-0 w-[70vw] md:w-[400px] h-[50vh] md:h-[70vh] flex flex-col items-center justify-center text-center">
           <div className="mb-8 relative">
-            <div className="w-32 h-32 rounded-full border border-white/10 flex items-center justify-center group cursor-pointer hover:border-primary transition-colors duration-500">
-              <ExternalLink className="text-white/20 group-hover:text-primary transition-colors duration-500" size={40} />
-            </div>
+            <Link to="/works">
+              <div className="w-32 h-32 rounded-full border border-white/10 flex items-center justify-center group cursor-pointer hover:border-primary transition-colors duration-500">
+                <ExternalLink className="text-white/20 group-hover:text-primary transition-colors duration-500" size={40} />
+              </div>
+            </Link>
           </div>
           <h3 className="text-3xl font-black text-white mb-2">HAVE A PROJECT?</h3>
           <p className="text-gray-500 max-w-[250px] mb-8">Let's build something extraordinary together.</p>
-          <button className="px-8 py-4 bg-primary text-black font-bold text-sm tracking-widest uppercase rounded-full hover:scale-105 transition-transform">
-            Get in touch
-          </button>
+          <Link to="/contact">
+            <button className="px-8 py-4 bg-primary text-black font-bold text-sm tracking-widest uppercase rounded-full hover:scale-105 transition-transform">
+              Get in touch
+            </button>
+          </Link>
         </div>
       </div>
     </section>

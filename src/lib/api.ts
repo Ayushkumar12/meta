@@ -142,6 +142,54 @@ export const contactApi = {
         request<{ success: boolean; message: string }>(`/contacts/${id}`, { method: "DELETE" }),
 };
 
+// ─── Projects ────────────────────────────────────────────────────────────────
+export interface Project {
+    _id: string;
+    title: string;
+    slug: string;
+    category: string;
+    type: "website" | "graphics" | "social_media";
+    image: string;
+    imagePublicId: string;
+    year: string;
+    description?: string;
+    longDescription?: string;
+    client?: string;
+    role?: string;
+    stack: string[];
+    link?: string;
+    published: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export const projectApi = {
+    getAll: (params?: Record<string, string>) => {
+        const qs = params ? "?" + new URLSearchParams(params).toString() : "";
+        return request<{ success: boolean; projects: Project[]; pagination: { total: number; pages: number } }>(
+            `/projects${qs}`
+        );
+    },
+
+    getById: (id: string) =>
+        request<{ success: boolean; project: Project }>(`/projects/${id}`),
+
+    create: (data: Omit<Project, "_id" | "createdAt" | "updatedAt">) =>
+        request<{ success: boolean; project: Project }>("/projects", {
+            method: "POST",
+            body: JSON.stringify(data),
+        }),
+
+    update: (id: string, data: Partial<Project>) =>
+        request<{ success: boolean; project: Project }>(`/projects/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(data),
+        }),
+
+    delete: (id: string) =>
+        request<{ success: boolean; message: string }>(`/projects/${id}`, { method: "DELETE" }),
+};
+
 // ─── Upload ──────────────────────────────────────────────────────────────────
 export const uploadApi = {
     uploadImage: async (file: File, folder?: string): Promise<{ url: string; publicId: string }> => {

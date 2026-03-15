@@ -3,20 +3,14 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { SEO } from "@/components/SEO";
-import { 
-  Target, 
-  Zap, 
-  Layers, 
-  ShieldCheck, 
-  Cpu, 
-  Sparkles,
+import {
+  Target,
+  Zap,
+  Layers,
+  Cpu,
   Command,
-  History,
   Compass,
-  Globe,
-  Code,
-  Flame,
-  MousePointer2
+  Flame
 } from "lucide-react";
 
 export default function About() {
@@ -31,10 +25,10 @@ export default function About() {
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
     },
   };
 
@@ -73,8 +67,8 @@ export default function About() {
               </span>
               Architecting the Invisible
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               variants={fadeInUp}
               className="display-xl mb-12 tracking-[-0.05em]"
             >
@@ -87,29 +81,16 @@ export default function About() {
               <p className="text-xl md:text-3xl text-white/50 leading-tight max-w-2xl font-light">
                 MetaCode is a high-performance digital studio. We exist at the intersection of <span className="text-white font-medium">uncompromising logic</span> and <span className="text-white font-medium">boundless creativity</span>.
               </p>
-              <div className="md:pt-2">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-12 h-12 rounded-full border-2 border-background bg-surface-2 flex items-center justify-center text-[10px] font-bold text-primary/60">
-                      0{i}
-                    </div>
-                  ))}
-                </div>
-                <p className="text-[10px] uppercase tracking-[0.3em] font-black text-white/30 mt-4">Entities in Orbit</p>
-              </div>
             </motion.div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 2 }}
             className="absolute bottom-0 right-0 hidden lg:block"
           >
-            <div className="flex flex-col items-center gap-4">
-              <span className="text-[10px] uppercase tracking-[0.5em] text-white/20 vertical-text rotate-180">Scroll to Explore</span>
-              <div className="h-24 w-px bg-gradient-to-t from-primary to-transparent" />
-            </div>
+
           </motion.div>
         </section>
 
@@ -136,7 +117,7 @@ export default function About() {
                 </div>
               </motion.div>
             </div>
-            
+
             <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
@@ -194,13 +175,10 @@ export default function About() {
             className="text-center max-w-5xl mx-auto px-6"
           >
             <h2 className="display-lg tracking-tight mb-16 leading-[0.85]">
-              "CODE IS <span className="gradient-text italic">POETRY</span> <br /> 
+              "CODE IS <span className="gradient-text italic">POETRY</span> <br />
               DESIGN IS <span className="text-white/20">TRUTH."</span>
             </h2>
             <div className="flex flex-col items-center gap-6">
-              <div className="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center animate-bounce">
-                <MousePointer2 size={16} className="text-primary" />
-              </div>
               <p className="label-sm text-primary/60">Our Founding Belief</p>
             </div>
           </motion.div>
@@ -214,7 +192,7 @@ export default function About() {
               <h2 className="display-md tracking-tighter">THE BLUEPRINT.</h2>
             </div>
             <p className="text-white/30 text-lg md:text-xl font-medium max-w-md md:text-right">
-              Methodical, transparent, and ruthlessly efficient. 
+              Methodical, transparent, and ruthlessly efficient.
               How we turn sparks into digital fire.
             </p>
           </div>
@@ -264,38 +242,20 @@ export default function About() {
             ))}
           </div>
         </section>
-
-        {/* --- Global Presence: Interactive Grid --- */}
-        <section className="mb-40 text-center">
-          <div className="inline-block p-12 rounded-[4rem] bg-surface border border-white/5 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            <Globe size={40} className="mx-auto text-primary mb-8 animate-spin-slow" />
-            <h2 className="text-4xl font-black tracking-tight mb-4">WORLDWIDE OPS.</h2>
-            <p className="text-white/30 text-lg font-medium max-w-md mx-auto mb-8">
-              Based in India, operating globally. We bridges timezones to deliver excellence wherever you are.
-            </p>
-            <div className="flex justify-center gap-12 font-black italic text-primary/20 text-5xl select-none group-hover:text-primary/40 transition-colors">
-              <span>NYC</span>
-              <span>DXB</span>
-              <span>LND</span>
-              <span>DEL</span>
-            </div>
-          </div>
-        </section>
       </div>
 
       {/* Background Decorative Elements */}
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
         <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-primary/10 blur-[150px] rounded-full animate-pulse-glow" />
         <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-accent/5 blur-[150px] rounded-full animate-pulse-glow delay-1000" />
-        
+
         {/* Subtle Grid Pattern Overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.02] mix-blend-overlay"
-          style={{ 
+          style={{
             backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px)`,
             backgroundSize: '40px 40px'
-          }} 
+          }}
         />
       </div>
     </div>

@@ -6,11 +6,23 @@ import { Process } from "@/components/sections/Process";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { WorkMarquee } from "@/components/sections/WorkMarquee";
 import { Contact } from "@/components/sections/Contact";
-import { projects } from "@/lib/projects";
+import { useState, useEffect } from "react";
+import { projectApi, Project } from "@/lib/api";
 
 export default function Home() {
-  const websiteProjects = projects.filter(p => p.type === "website");
-  const graphicsProjects = projects.filter(p => p.type === "graphics");
+  const [apiProjects, setApiProjects] = useState<Project[]>([]);
+  
+  useEffect(() => {
+    projectApi.getAll()
+      .then((res) => setApiProjects(res.projects))
+      .catch((err) => console.error("Failed to fetch projects:", err));
+  }, []);
+
+  const allProjects = apiProjects.map(p => ({ ...p, id: p._id }));
+
+  const websiteProjects = allProjects.filter(p => p.type === "website");
+  const graphicsProjects = allProjects.filter(p => p.type === "graphics");
+  const socialMediaProjects = allProjects.filter(p => p.type === "social_media");
 
   return (
     <>
@@ -69,6 +81,9 @@ export default function Home() {
           )}
           {graphicsProjects.length > 0 && (
             <WorkMarquee projects={graphicsProjects} reverse isPortrait />
+          )}
+          {socialMediaProjects.length > 0 && (
+            <WorkMarquee projects={socialMediaProjects} />
           )}
         </section>
 

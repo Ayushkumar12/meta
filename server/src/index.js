@@ -80,6 +80,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/blogs', require('./routes/blogs'));
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/upload', require('./routes/upload'));
+app.use('/api/projects', require('./routes/projects'));
 
 // Centralized error handler
 app.use(errorHandler);

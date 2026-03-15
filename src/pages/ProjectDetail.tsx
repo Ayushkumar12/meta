@@ -1,16 +1,28 @@
 "use client";
 
 import { useParams, Link } from "react-router-dom";
-import { projects } from "@/lib/projects";
-import { ArrowLeft, ExternalLink, MoveRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, MoveRight, Loader2 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { SEO } from "@/components/SEO";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import { projectApi, Project } from "@/lib/api";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
-  const project = projects.find((p) => p.slug === slug);
+  const [project, setProject] = useState<Project | any>(null);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Fetch from API
+    projectApi.getAll()
+      .then((res) => {
+        const found = res.projects.find(p => p.slug === slug);
+        if (found) setProject(found);
+      })
+      .catch((err) => console.error("Failed to fetch project:", err))
+      .finally(() => setLoading(false));
+  }, [slug]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -19,6 +31,14 @@ export default function ProjectDetail() {
 
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#050508]">
+        <Loader2 className="w-12 h-12 text-primary animate-spin" />
+      </div>
+    );
+  }
 
   if (!project) {
     return (
@@ -158,7 +178,7 @@ export default function ProjectDetail() {
                   <div>
                     <h4 className="text-[10px] font-bold text-primary tracking-widest uppercase mb-6">TECHNOLOGIES</h4>
                     <div className="flex flex-wrap gap-2">
-                      {project.stack.map(tech => (
+                      {project.stack.map((tech: string) => (
                         <span key={tech} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-white/40 uppercase">
                           {tech}
                         </span>

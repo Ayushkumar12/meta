@@ -1,18 +1,34 @@
 "use client";
 
-import { projects } from "@/lib/projects";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Sparkles, Filter } from "lucide-react";
+import { ArrowUpRight, Sparkles, Filter, Loader2 } from "lucide-react";
 import { SEO } from "@/components/SEO";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { projectApi, Project } from "@/lib/api";
 
 export default function Works() {
   const [activeTab, setActiveTab] = useState<"website" | "graphics" | "social_media">("website");
+  const [apiProjects, setApiProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const filteredProjects = projects.filter(
-    (project) => (project as any).type === activeTab
+  useEffect(() => {
+    projectApi.getAll()
+      .then((res) => setApiProjects(res.projects))
+      .catch((err) => console.error("Failed to fetch projects:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Use API projects
+  const allProjects = apiProjects.map(p => ({
+    ...p,
+    id: p._id,
+    image: p.image
+  }));
+
+  const filteredProjects = allProjects.filter(
+    (project) => project.type === activeTab
   );
 
   return (
@@ -85,10 +101,16 @@ export default function Works() {
         </div>
 
         {/* ── Projects Grid ── */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16"
-        >
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-32 gap-6">
+            <Loader2 className="w-16 h-16 text-primary animate-spin opacity-20" />
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 animate-pulse">Synchronizing Portfolio...</p>
+          </div>
+        ) : (
+          <motion.div
+            layout
+            className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16"
+          >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, idx) => {
               const isGraphics = project.type !== "website";
@@ -213,26 +235,9 @@ export default function Works() {
             })}
           </AnimatePresence>
         </motion.div>
+      )}
 
-        {/* ── CTA Banner ── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="mt-40 relative py-32 px-10 rounded-[3rem] bg-[#0d0d14] border border-white/[0.05] overflow-hidden text-center"
-        >
-          <div className="absolute inset-0 opacity-[0.03] bg-noise pointer-events-none" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary/20 blur-[130px] rounded-[50%] pointer-events-none" />
 
-          <h2 className="display-md text-white mb-12 leading-[1]">Ready to Start <br /> <span className="gradient-text">Your Legend?</span></h2>
-          <Link
-            to="/contact"
-            className="group inline-flex items-center gap-2.5 px-10 py-5 bg-primary rounded-full text-white font-bold text-sm tracking-widest uppercase hover:shadow-glow-primary hover:scale-105 transition-all duration-300 active:scale-95"
-          >
-            Get in touch
-            <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-        </motion.div>
       </div>
     </div>
   );

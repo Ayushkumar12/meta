@@ -1,18 +1,16 @@
-"use client";
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { BlogPost, ContactMessage, blogApi, contactApi, uploadApi, authApi } from "@/lib/api";
+import { BlogPost, ContactMessage, Project, blogApi, contactApi, uploadApi, authApi, projectApi } from "@/lib/api";
 import {
     LayoutDashboard, FileText, MessageSquare, Plus, Trash2, Edit3,
     Image as ImageIcon, CheckCircle2, X, Sparkles, Bell, Eye, TrendingUp,
     Users, Mail, ArrowRight, ChevronRight, LogOut, Layers, Menu,
-    Search, Check, AlertCircle, Upload, Loader2, Lock, KeyRound,
+    Search, Check, AlertCircle, Upload, Loader2, Lock, KeyRound, Briefcase
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 /* ─────────────── Types ─────────────── */
-type AdminView = "dashboard" | "blogs" | "messages";
+type AdminView = "dashboard" | "blogs" | "projects" | "messages";
 
 /* ─────────────── Token helpers ─────────────── */
 const TOKEN_KEY = "metacode_admin_token";
@@ -143,6 +141,7 @@ function Sidebar({ view, setView, unreadCount, blogCount, onLogout, open, setOpe
     const links: { id: string; label: string; icon: any; roles: string[]; badge?: number }[] = [
         { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, roles: ["admin"] },
         { id: "blogs", label: "Journal", icon: FileText, badge: blogCount, roles: ["admin", "editor"] },
+        { id: "projects", label: "Works", icon: Briefcase, roles: ["admin", "editor"] },
         { id: "messages", label: "Messages", icon: MessageSquare, badge: unreadCount, roles: ["admin"] },
     ].filter(l => l.roles.includes(role));
 
@@ -246,7 +245,7 @@ function StatCard({ label, value, icon: Icon, color, sub }: { label: string; val
 }
 
 /* ─────────────── Dashboard View ─────────────── */
-function DashboardView({ blogCount, unreadCount, totalMessages, setView }: { blogCount: number; unreadCount: number; totalMessages: number; setView: (v: AdminView) => void }) {
+function DashboardView({ blogCount, unreadCount, totalMessages, projectCount, setView }: { blogCount: number; unreadCount: number; totalMessages: number; projectCount: number; setView: (v: AdminView) => void }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -279,10 +278,11 @@ function DashboardView({ blogCount, unreadCount, totalMessages, setView }: { blo
                 <p className="text-white/30 font-medium">Welcome to the MetaCode control core. All systems are synchronized.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
-                <StatCard label="Journal Voices" value={blogCount} icon={FileText} color="#6c63ff" sub="Published insights in the digital digital solutions provider" />
-                <StatCard label="Unread Messages" value={unreadCount} icon={Mail} color="#00f5c4" sub="Awaiting your attention in the inbox" />
-                <StatCard label="Total Messages" value={totalMessages} icon={Users} color="#ff6b9d" sub="Across all channels and inquiries" />
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-16">
+                <StatCard label="Journal Voices" value={blogCount} icon={FileText} color="#6c63ff" sub="Published insights" />
+                <StatCard label="Projects" value={projectCount} icon={Briefcase} color="#f59e0b" sub="Works in showcase" />
+                <StatCard label="Unread" value={unreadCount} icon={Mail} color="#00f5c4" sub="Awaiting attention" />
+                <StatCard label="Total Reach" value={totalMessages} icon={Users} color="#ff6b9d" sub="Contact inquiries" />
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
@@ -291,6 +291,7 @@ function DashboardView({ blogCount, unreadCount, totalMessages, setView }: { blo
                     <div className="space-y-4">
                         {[
                             { label: "Write New Journal Entry", icon: Plus, action: () => setView("blogs"), color: "#6c63ff" },
+                            { label: "Upload New Project", icon: Briefcase, action: () => setView("projects"), color: "#f59e0b" },
                             { label: "Read New Messages", icon: MessageSquare, action: () => setView("messages"), color: "#00f5c4", badge: unreadCount },
                         ].map((item) => (
                             <button
@@ -694,6 +695,277 @@ function BlogsView() {
     );
 }
 
+/* ─────────────── Project Modal ─────────────── */
+function ProjectModal({ editingProject, onClose, onSubmit, saving }: {
+    editingProject: Project | null;
+    onClose: () => void;
+    onSubmit: (data: any) => void;
+    saving: boolean;
+}) {
+    const [formData, setFormData] = useState({
+        title: editingProject?.title ?? "",
+        slug: editingProject?.slug ?? "",
+        category: editingProject?.category ?? "Web Development",
+        type: editingProject?.type ?? "website",
+        image: editingProject?.image ?? "",
+        imagePublicId: editingProject?.imagePublicId ?? "",
+        year: editingProject?.year ?? new Date().getFullYear().toString(),
+        description: editingProject?.description ?? "",
+        longDescription: editingProject?.longDescription ?? "",
+        client: editingProject?.client ?? "",
+        role: editingProject?.role ?? "Full Stack Development",
+        stack: editingProject?.stack?.join(", ") ?? "",
+        link: editingProject?.link ?? "",
+        published: editingProject?.published ?? true,
+    });
+    const [uploading, setUploading] = useState(false);
+    const fileRef = useRef<HTMLInputElement>(null);
+
+    const types = [
+        { id: "website", label: "Web App" },
+        { id: "graphics", label: "Graphics" },
+        { id: "social_media", label: "Social Media" }
+    ];
+
+    const generateSlug = (title: string) => {
+        return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    };
+
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value;
+        setFormData({ ...formData, title: val, slug: generateSlug(val) });
+    };
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setUploading(true);
+        try {
+            const { url, publicId } = await uploadApi.uploadImage(file, "projects");
+            setFormData((prev: any) => ({ ...prev, image: url, imagePublicId: publicId }));
+        } catch (err: any) {
+            alert("Image upload failed: " + err.message);
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        onSubmit({
+            ...formData,
+            stack: formData.stack.split(",").map((t: string) => t.trim()).filter(Boolean),
+        });
+    };
+
+    return (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-black/90 backdrop-blur-2xl" />
+            <motion.div
+                initial={{ opacity: 0, scale: 0.92, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 30 }}
+                className="relative w-full max-w-4xl bg-[#0d0d16] border border-white/[0.08] rounded-3xl md:rounded-[3rem] overflow-y-auto max-h-[92vh] shadow-2xl"
+            >
+                <div className="sticky top-0 z-10 bg-[#0d0d16]/95 backdrop-blur-xl border-b border-white/[0.06] px-6 md:px-12 py-6 md:py-8 flex items-center justify-between">
+                    <div>
+                        <h2 className="text-xl md:text-2xl font-black text-white tracking-tight">
+                            {editingProject ? "Edit" : "New"} <span className="gradient-text">Project Entry</span>
+                        </h2>
+                        <p className="text-white/30 text-xs mt-1 font-medium">Add a new masterpiece to your digital showcase.</p>
+                    </div>
+                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-white/[0.05] flex items-center justify-center hover:bg-red-500/20 hover:border-red-500/40 border border-white/10 transition-all duration-300 group">
+                        <X size={18} className="text-white/40 group-hover:text-red-400 transition-colors" />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="p-6 md:p-12 space-y-8 md:space-y-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Project Title *</label>
+                            <input required value={formData.title} onChange={handleTitleChange} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-lg font-bold text-white focus:border-primary/50 outline-none transition-all" placeholder="Project Name" />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Category *</label>
+                            <input required value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-lg font-bold text-white focus:border-primary/50 outline-none transition-all" placeholder="e.g. E-Commerce" />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Type *</label>
+                            <select value={formData.type} onChange={(e: any) => setFormData({ ...formData, type: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 font-bold text-white appearance-none focus:border-primary/50 outline-none transition-all">
+                                {types.map((t) => <option key={t.id} value={t.id} className="bg-[#0d0d16]">{t.label}</option>)}
+                            </select>
+                        </div>
+                        <div className="space-y-2 lg:col-span-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Slug (Auto-generated)</label>
+                            <input required value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 font-mono text-xs text-primary/70 focus:border-primary/50 outline-none transition-all" />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Client</label>
+                            <input value={formData.client} onChange={(e) => setFormData({ ...formData, client: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-white focus:border-primary/50 outline-none transition-all" placeholder="Client Name" />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Role</label>
+                            <input value={formData.role} onChange={(e) => setFormData({ ...formData, role: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-white focus:border-primary/50 outline-none transition-all" placeholder="Full Stack Development" />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Stack (comma-separated)</label>
+                            <input value={formData.stack} onChange={(e) => setFormData({ ...formData, stack: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-white focus:border-primary/50 outline-none transition-all" placeholder="React, Node.js, etc." />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Project Link</label>
+                            <input value={formData.link} onChange={(e) => setFormData({ ...formData, link: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-white focus:border-primary/50 outline-none transition-all" placeholder="https://..." />
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Display Image *</label>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="relative flex-1">
+                                <ImageIcon size={16} className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" />
+                                <input value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 pl-12 pr-6 text-white/60 focus:border-primary/50 outline-none transition-all" placeholder="Image URL or upload" />
+                            </div>
+                            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-primary/10 border border-primary/20 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:bg-primary/20 transition-all">
+                                {uploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+                                {uploading ? "Uploading..." : "Upload"}
+                            </button>
+                            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                        </div>
+                        {formData.image && (
+                            <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10">
+                                <img src={formData.image} className="w-full h-full object-cover" />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Short Description *</label>
+                        <textarea required value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-white/60 focus:border-primary/50 outline-none transition-all min-h-[100px] resize-none" placeholder="One sentence teaser..." />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Detailed Narrative</label>
+                        <textarea value={formData.longDescription} onChange={(e) => setFormData({ ...formData, longDescription: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 px-6 text-white/60 focus:border-primary/50 outline-none transition-all min-h-[200px] resize-none" placeholder="Explain the project impact and challenges..." />
+                    </div>
+
+                    <div className="flex justify-end gap-4 pt-4 border-t border-white/[0.05]">
+                        <button type="button" onClick={onClose} className="px-8 py-4 rounded-2xl border border-white/10 text-white/30 hover:text-white transition-all font-black text-[10px] uppercase tracking-[0.3em]">Cancel</button>
+                        <button type="submit" disabled={saving || uploading} className="flex items-center gap-3 px-10 py-4 bg-primary text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-2xl hover:shadow-glow-primary hover:scale-105 transition-all">
+                            {saving ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
+                            {saving ? "Storing..." : editingProject ? "Update Masterpiece" : "Add to Showcase"}
+                        </button>
+                    </div>
+                </form>
+            </motion.div>
+        </div>
+    );
+}
+
+/* ─────────────── Project Manager View ─────────────── */
+function ProjectsView() {
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingProject, setEditingProject] = useState<Project | null>(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [saving, setSaving] = useState(false);
+
+    const fetchProjects = () => {
+        setLoading(true);
+        projectApi.getAll()
+            .then((res) => setProjects(res.projects))
+            .finally(() => setLoading(false));
+    };
+
+    useEffect(() => { fetchProjects(); }, []);
+
+    const filtered = projects.filter(
+        (p) => p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const handleSubmit = async (data: any) => {
+        setSaving(true);
+        try {
+            if (editingProject) await projectApi.update(editingProject._id, data);
+            else await projectApi.create(data);
+            setIsModalOpen(false);
+            fetchProjects();
+        } catch (err: any) {
+            alert("Error: " + err.message);
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!window.confirm("Delete this masterpiece?")) return;
+        try {
+            await projectApi.delete(id);
+            fetchProjects();
+        } catch (err: any) {
+            alert("Delete failed: " + err.message);
+        }
+    };
+
+    return (
+        <div>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12">
+                <div>
+                    <h1 className="text-3xl md:text-4xl font-black text-white tracking-tighter mb-2">Showcase <span className="gradient-text">Manager.</span></h1>
+                    <p className="text-white/30 font-medium">{projects.length} artifacts in the digital museum.</p>
+                </div>
+                <button onClick={() => { setEditingProject(null); setIsModalOpen(true); }} className="btn btn-primary px-8">
+                    <Plus size={16} /> New Project
+                </button>
+            </div>
+
+            <div className="relative mb-8">
+                <Search size={16} className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" />
+                <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Filter artifacts..." className="w-full bg-white/[0.03] border border-white/[0.06] rounded-2xl py-4 pl-12 pr-6 text-white/60 focus:border-primary/40 outline-none transition-all" />
+            </div>
+
+            {loading ? (
+                <div className="flex items-center justify-center py-24"><Loader2 className="w-10 h-10 text-primary animate-spin" /></div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {filtered.map((p) => (
+                        <div key={p._id} className="group p-6 rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] hover:border-white/10 transition-all duration-500">
+                            <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-white/5 grayscale group-hover:grayscale-0 transition-all duration-700">
+                                <img src={p.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                                <div className="absolute top-4 right-4 flex gap-2">
+                                    <button onClick={() => { setEditingProject(p); setIsModalOpen(true); }} className="w-8 h-8 rounded-lg bg-black/50 backdrop-blur-md flex items-center justify-center text-white/60 hover:text-white transition-all"><Edit3 size={14} /></button>
+                                    <button onClick={() => handleDelete(p._id)} className="w-8 h-8 rounded-lg bg-black/50 backdrop-blur-md flex items-center justify-center text-white/60 hover:text-red-400 transition-all"><Trash2 size={14} /></button>
+                                </div>
+                                <div className="absolute bottom-4 left-4">
+                                    <span className="text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded bg-primary text-white">{p.type}</span>
+                                </div>
+                            </div>
+                            <h3 className="text-xl font-black text-white mb-2">{p.title}</h3>
+                            <p className="text-white/30 text-xs font-bold uppercase tracking-widest mb-4">{p.category} · {p.year}</p>
+                            <p className="text-white/40 text-sm line-clamp-2 leading-relaxed mb-6">{p.description}</p>
+                            <div className="flex flex-wrap gap-2">
+                                {p.stack.slice(0, 3).map((s) => <span key={s} className="text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-full bg-white/[0.05] text-white/40">{s}</span>)}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            <AnimatePresence>
+                {isModalOpen && <ProjectModal editingProject={editingProject} onClose={() => setIsModalOpen(false)} onSubmit={handleSubmit} saving={saving} />}
+            </AnimatePresence>
+        </div>
+    );
+}
+
 /* ─────────────── Messages View ─────────────── */
 function MessagesView() {
     const [messages, setMessages] = useState<ContactMessage[]>([]);
@@ -890,6 +1162,7 @@ export default function Admin() {
     const [user, setUser] = useState<{ id: string; email: string; name: string; role: string } | null | undefined>(undefined);
     const [view, setView] = useState<AdminView>("dashboard");
     const [blogCount, setBlogCount] = useState(0);
+    const [projects, setProjects] = useState<Project[]>([]);
     const [unreadCount, setUnreadCount] = useState(0);
     const [totalMessages, setTotalMessages] = useState(0);
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -910,6 +1183,7 @@ export default function Admin() {
     useEffect(() => {
         if (!user) return;
         blogApi.getAll({ limit: "1" }).then((r) => setBlogCount(r.pagination.total));
+        projectApi.getAll().then((r) => setProjects(r.projects));
 
         if (user.role === "admin") {
             contactApi.getAll({ limit: "1" }).then((r) => {
@@ -940,8 +1214,9 @@ export default function Admin() {
     };
 
     const views: Record<AdminView, React.ReactNode> = {
-        dashboard: user.role === "admin" ? <DashboardView blogCount={blogCount} unreadCount={unreadCount} totalMessages={totalMessages} setView={setView} /> : <BlogsView />,
+        dashboard: user.role === "admin" ? <DashboardView blogCount={blogCount} unreadCount={unreadCount} totalMessages={totalMessages} projectCount={projects.length} setView={setView} /> : <BlogsView />,
         blogs: <BlogsView />,
+        projects: <ProjectsView />,
         messages: user.role === "admin" ? <MessagesView /> : <BlogsView />,
     };
 

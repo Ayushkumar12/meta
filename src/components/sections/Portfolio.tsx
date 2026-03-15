@@ -1,43 +1,29 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "@/lib/gsap";
 import { motion } from "framer-motion";
-import { ExternalLink, ArrowRight } from "lucide-react";
-
-const projects = [
-  {
-    title: "NEURAL INTERFACE",
-    category: "AI & ROBOTICS",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",
-    year: "2025",
-  },
-  {
-    title: "QUANTUM CLOUD",
-    category: "INFRASTRUCTURE",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
-    year: "2024",
-  },
-  {
-    title: "CYBERPUNK CITY",
-    category: "ARCHITECTURE",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",
-    year: "2025",
-  },
-  {
-    title: "BIO-SYNTHETIC",
-    category: "BIOTECH",
-    image: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=1200&q=80",
-    year: "2024",
-  },
-];
+import { ExternalLink, ArrowRight, Loader2 } from "lucide-react";
+import { projectApi, Project } from "@/lib/api";
+import { Link } from "react-router-dom";
 
 export function Portfolio() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinTargetRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    projectApi.getAll()
+      .then((res) => setProjects(res.projects.slice(0, 4)))
+      .catch((err) => console.error("Failed to fetch projects:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    if (loading || projects.length === 0) return;
+
     const section = sectionRef.current;
     const pinTarget = pinTargetRef.current;
     const scroll = scrollRef.current;
@@ -102,7 +88,15 @@ export function Portfolio() {
     }, section);
 
     return () => ctx.revert();
-  }, []);
+  }, [loading, projects]);
+
+  if (loading) {
+    return (
+      <div className="h-screen bg-black flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-primary animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <section ref={sectionRef} className="relative py-20 bg-black">
@@ -118,10 +112,11 @@ export function Portfolio() {
         </div>
 
         <div ref={scrollRef} className="flex h-screen items-center px-[10vw] gap-[5vw] relative z-10">
-        {projects.map((p, i) => (
-          <div
-            key={i}
-            className="project-card-new flex-shrink-0 w-[85vw] md:mt-20 md:w-[800px] h-[60vh] md:h-[70vh] relative group overflow-hidden rounded-xl"
+        {projects.map((p) => (
+          <Link
+            key={p._id}
+            to={`/works/${p.slug}`}
+            className="project-card-new flex-shrink-0 w-[85vw] md:mt-20 md:w-[800px] h-[60vh] md:h-[70vh] relative group overflow-hidden rounded-xl block"
           >
             {/* Image Wrapper */}
             <div className="absolute inset-0 overflow-hidden">
@@ -143,7 +138,7 @@ export function Portfolio() {
                   <h3 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-none">
                     {p.title}
                   </h3>
-                  <motion.button
+                  <motion.div
                     whileHover={{ x: 10 }}
                     className="flex items-center gap-4 text-white group/btn"
                   >
@@ -151,7 +146,7 @@ export function Portfolio() {
                     <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:bg-primary group-hover/btn:border-primary group-hover/btn:text-black transition-all">
                       <ArrowRight size={18} />
                     </div>
-                  </motion.button>
+                  </motion.div>
                 </div>
                 
                 <div className="hidden md:block">
@@ -165,17 +160,17 @@ export function Portfolio() {
             {/* Decorative Lines */}
             <div className="absolute top-0 left-0 w-full h-[1px] bg-white/10 scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             <div className="absolute bottom-0 right-0 w-full h-[1px] bg-white/10 scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-right" />
-          </div>
+          </Link>
         ))}
 
         {/* View All Projects Card */}
-        <div className="flex-shrink-0 w-[85vw] md:w-[400px] h-[60vh] md:h-[70vh] flex flex-col items-center justify-center border border-white/5 hover:border-primary/50 transition-colors group cursor-pointer rounded-xl">
+        <Link to="/works" className="flex-shrink-0 w-[85vw] md:w-[400px] h-[60vh] md:h-[70vh] flex flex-col items-center justify-center border border-white/5 hover:border-primary/50 transition-colors group cursor-pointer rounded-xl">
           <p className="text-white/20 text-8xl font-black mb-8 group-hover:text-primary transition-colors">
             +
           </p>
           <h3 className="text-2xl font-black text-white mb-4">MORE WORKS</h3>
           <p className="text-gray-500 font-medium">EXPLORE ALL PROJECTS</p>
-        </div>
+        </Link>
         </div>
       </div>
     </section>
