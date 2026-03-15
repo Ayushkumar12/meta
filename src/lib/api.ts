@@ -217,3 +217,25 @@ export const uploadApi = {
             body: JSON.stringify({ publicId }),
         }),
 };
+// ─── Settings ────────────────────────────────────────────────────────────────
+export interface SEOSettings {
+    _id: string;
+    siteName: string;
+    defaultTitle: string;
+    defaultDescription: string;
+    baseUrl: string;
+    defaultOgImage: string;
+    twitterHandle: string;
+    keywords: string[];
+}
+
+export const settingsApi = {
+    get: () =>
+        request<{ success: boolean; settings: SEOSettings }>("/settings"),
+
+    update: (data: Partial<SEOSettings>) =>
+        request<{ success: boolean; settings: SEOSettings; message: string }>("/settings", {
+            method: "PUT",
+            body: JSON.stringify(data),
+        }),
+};

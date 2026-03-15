@@ -1,16 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { BlogPost, ContactMessage, Project, blogApi, contactApi, uploadApi, authApi, projectApi } from "@/lib/api";
+import { BlogPost, ContactMessage, Project, blogApi, contactApi, uploadApi, authApi, projectApi, settingsApi } from "@/lib/api";
 import {
     LayoutDashboard, FileText, MessageSquare, Plus, Trash2, Edit3,
-    Image as ImageIcon, CheckCircle2, X, Sparkles, Bell, Eye, TrendingUp,
+    CheckCircle2, X, Sparkles, Bell, Eye, TrendingUp,
     Users, Mail, ArrowRight, ChevronRight, LogOut, Layers, Menu,
     Search, Check, AlertCircle, Upload, Loader2, Lock, KeyRound, Briefcase
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 /* ─────────────── Types ─────────────── */
-type AdminView = "dashboard" | "blogs" | "projects" | "messages";
+type AdminView = "dashboard" | "blogs" | "projects" | "messages" | "settings";
 
 /* ─────────────── Token helpers ─────────────── */
 const TOKEN_KEY = "metacode_admin_token";
@@ -143,6 +143,7 @@ function Sidebar({ view, setView, unreadCount, blogCount, onLogout, open, setOpe
         { id: "blogs", label: "Journal", icon: FileText, badge: blogCount, roles: ["admin", "editor"] },
         { id: "projects", label: "Works", icon: Briefcase, roles: ["admin", "editor"] },
         { id: "messages", label: "Messages", icon: MessageSquare, badge: unreadCount, roles: ["admin"] },
+        { id: "settings", label: "Settings", icon: Sparkles, roles: ["admin"] },
     ].filter(l => l.roles.includes(role));
 
     return (
@@ -1178,6 +1179,108 @@ function MessagesView() {
 
 
 
+/* ─────────────── Settings View ─────────────── */
+function SettingsView() {
+    const [settings, setSettings] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const res = await settingsApi.get();
+                setSettings(res.settings);
+            } catch (err) {
+                console.error("Failed to fetch settings", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchSettings();
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSaving(true);
+        setStatus(null);
+        try {
+            await settingsApi.update(settings);
+            setStatus({ type: "success", message: "SEO Settings synchronized successfully!" });
+        } catch (err: any) {
+            setStatus({ type: "error", message: err.message || "Failed to sync settings." });
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    if (loading) return <div className="flex items-center justify-center py-24"><Loader2 className="w-10 h-10 text-primary animate-spin" /></div>;
+    if (!settings) return null;
+
+    return (
+        <div className="max-w-4xl">
+            <div className="mb-10">
+                <h1 className="text-3xl md:text-4xl font-black text-white tracking-tighter mb-3">Core <span className="gradient-text">Configuration.</span></h1>
+                <p className="text-white/30 font-medium">Manage global SEO and system-wide metadata for the digital solutions provider.</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Site Name</label>
+                            <input value={settings.siteName} onChange={(e) => setSettings({ ...settings, siteName: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-4 px-5 text-white focus:border-primary/50 outline-none transition-all" />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Base URL</label>
+                            <input value={settings.baseUrl} onChange={(e) => setSettings({ ...settings, baseUrl: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-4 px-5 text-white focus:border-primary/50 outline-none transition-all" />
+                        </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Default SEO Title</label>
+                        <input value={settings.defaultTitle} onChange={(e) => setSettings({ ...settings, defaultTitle: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-4 px-5 text-white focus:border-primary/50 outline-none transition-all" />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Default Meta Description</label>
+                        <textarea value={settings.defaultDescription} onChange={(e) => setSettings({ ...settings, defaultDescription: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-4 px-5 text-white focus:border-primary/50 outline-none transition-all min-h-[100px] resize-none" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Twitter Handle</label>
+                            <input value={settings.twitterHandle} onChange={(e) => setSettings({ ...settings, twitterHandle: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-4 px-5 text-white focus:border-primary/50 outline-none transition-all" />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Keywords (comma separated)</label>
+                            <input value={settings.keywords?.join(", ") ?? ""} onChange={(e) => setSettings({ ...settings, keywords: e.target.value.split(",").map((k: string) => k.trim()) })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-4 px-5 text-white focus:border-primary/50 outline-none transition-all" />
+                        </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Default OG Image URL</label>
+                        <input value={settings.defaultOgImage} onChange={(e) => setSettings({ ...settings, defaultOgImage: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-4 px-5 text-white focus:border-primary/50 outline-none transition-all" />
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-between gap-6">
+                    {status && (
+                        <div className={`flex items-center gap-2 text-xs font-bold ${status.type === "success" ? "text-accent" : "text-red-400"}`}>
+                            {status.type === "success" ? <CheckCircle2 size={14} /> : <AlertCircle size={14} />}
+                            {status.message}
+                        </div>
+                    )}
+                    <button type="submit" disabled={saving} className="ml-auto flex items-center gap-3 px-10 py-4 bg-primary text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-2xl hover:shadow-glow-primary hover:scale-105 transition-all disabled:opacity-50">
+                        {saving ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
+                        {saving ? "Synchronizing..." : "Update SEO Configuration"}
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+}
+
 /* ─────────────── Main Admin Shell ─────────────── */
 export default function Admin() {
     const [user, setUser] = useState<{ id: string; email: string; name: string; role: string } | null | undefined>(undefined);
@@ -1239,6 +1342,7 @@ export default function Admin() {
         blogs: <BlogsView />,
         projects: <ProjectsView />,
         messages: user.role === "admin" ? <MessagesView /> : <BlogsView />,
+        settings: user.role === "admin" ? <SettingsView /> : <BlogsView />,
     };
 
     return (

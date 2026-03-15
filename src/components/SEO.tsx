@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import { useEffect, useState } from "react";
+import { settingsApi, SEOSettings } from "@/lib/api";
 
 interface SEOProps {
   title?: string;
@@ -16,14 +18,21 @@ export const SEO = ({
   ogImage,
   ogType = "website",
 }: SEOProps) => {
-  const siteName = "MetaCode";
-  const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Future Digital Solutions - Premium Tech Agency`;
-  const defaultDescription = "MetaCode is a premium tech agency in India delivering web development, branding, and custom digital solutions for modern businesses.";
-  const metaDescription = description || defaultDescription;
-  const url = "https://metacode.co.in";
-  const fullCanonical = canonical ? `${url}${canonical}` : url;
-  const defaultOgImage = `${url}/logo.png`;
-  const metaOgImage = ogImage || defaultOgImage;
+  const [settings, setSettings] = useState<SEOSettings | null>(null);
+
+  useEffect(() => {
+    settingsApi.get().then((res) => {
+      if (res.success) setSettings(res.settings);
+    }).catch(err => console.error("SEO fetch failed", err));
+  }, []);
+
+  const siteName = settings?.siteName || "MetaCode";
+  const fullTitle = title ? `${title} | ${siteName}` : (settings?.defaultTitle || `${siteName} | Future Digital Solutions - Premium Tech Agency`);
+  const metaDescription = description || settings?.defaultDescription || "MetaCode is a premium tech agency in India delivering web development, branding, and custom digital solutions for modern businesses.";
+  const baseUrl = settings?.baseUrl || "https://metacode.co.in";
+  const fullCanonical = canonical ? `${baseUrl}${canonical}` : baseUrl;
+  const metaOgImage = ogImage || settings?.defaultOgImage || `${baseUrl}/logo.png`;
+  const twitterHandle = settings?.twitterHandle || "@metacode";
 
   return (
     <Helmet>
@@ -47,11 +56,17 @@ export const SEO = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={metaOgImage} />
+      <meta name="twitter:site" content={twitterHandle} />
 
       {/* Robot tags */}
       <meta name="robots" content="index, follow" />
       <meta name="googlebot" content="index, follow" />
       <meta name="bingbot" content="index, follow" />
+      
+      {/* Keywords */}
+      {settings?.keywords && settings.keywords.length > 0 && (
+        <meta name="keywords" content={settings.keywords.join(", ")} />
+      )}
     </Helmet>
   );
 };

@@ -81,6 +81,7 @@ app.use('/api/blogs', require('./routes/blogs'));
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/projects', require('./routes/projects'));
+app.use('/api/settings', require('./routes/settings'));
 
 // Centralized error handler
 app.use(errorHandler);
