@@ -7,6 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { NoiseOverlay } from "@/components/ui/NoiseOverlay";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 // Pages
 const Home = lazy(() => import("@/pages/Home"));
@@ -39,6 +40,7 @@ export default function App() {
   if (isAdmin) {
     return (
       <>
+        <ScrollToTop />
         <CustomCursor />
         <NoiseOverlay />
         <Suspense fallback={null}>
@@ -53,6 +55,7 @@ export default function App() {
       <LoadingScreen onComplete={() => setLoading(false)} />
       {!loading && (
         <SmoothScroll>
+          <ScrollToTop />
           <div className="relative min-h-screen bg-black text-white selection:bg-primary selection:text-black">
             <CustomCursor />
             <Navbar />

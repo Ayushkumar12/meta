@@ -52,7 +52,6 @@ export default function BlogDetail() {
             setNotFound(true);
         }).finally(() => {
             setLoading(false);
-            window.scrollTo(0, 0);
         });
     }, [id]);
 

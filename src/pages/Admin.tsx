@@ -477,18 +477,26 @@ function BlogModal({ editingBlog, onClose, onSubmit, saving }: {
                     <div className="space-y-4">
                         <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Cover Image</label>
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <div className="relative flex-1">
-                                <ImageIcon size={16} className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" />
-                                <input value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 pl-12 pr-6 text-white/60 placeholder:text-white/10 focus:border-primary/50 outline-none transition-all" placeholder="https://... or upload below" />
+                            <div 
+                                onClick={() => fileRef.current?.click()}
+                                className="flex-1 flex items-center gap-4 px-6 py-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] cursor-pointer group/upload hover:border-primary/50 transition-all"
+                            >
+                                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover/upload:scale-110 transition-transform">
+                                    <Upload size={18} />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Select Media Asset</p>
+                                    <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-0.5">Click to browse archive</p>
+                                </div>
                             </div>
                             <button
                                 type="button"
                                 onClick={() => fileRef.current?.click()}
                                 disabled={uploading}
-                                className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-primary/10 border border-primary/20 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:bg-primary/20 transition-all disabled:opacity-50"
+                                className="hidden sm:flex items-center gap-2 px-8 py-4 rounded-2xl bg-primary text-white font-black text-[10px] uppercase tracking-[0.2em] hover:shadow-glow-primary transition-all disabled:opacity-50"
                             >
-                                {uploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
-                                {uploading ? "Uploading..." : "Upload"}
+                                {uploading ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                                {uploading ? "Processing..." : "Upload New"}
                             </button>
                             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                         </div>
@@ -829,16 +837,29 @@ function ProjectModal({ editingProject, onClose, onSubmit, saving }: {
                     <div className="space-y-4">
                         <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">Display Image *</label>
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <div className="relative flex-1">
-                                <ImageIcon size={16} className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" />
-                                <input value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl py-5 pl-12 pr-6 text-white/60 focus:border-primary/50 outline-none transition-all" placeholder="Image URL or upload" />
+                            <div 
+                                onClick={() => fileRef.current?.click()}
+                                className="flex-1 flex items-center gap-5 p-6 rounded-[2rem] bg-white/[0.03] border border-white/[0.1] hover:border-primary/50 hover:bg-primary/[0.02] cursor-pointer transition-all group"
+                            >
+                                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+                                    <Upload size={24} />
+                                </div>
+                                <div>
+                                    <p className="text-[11px] font-black uppercase tracking-[0.3em] text-white mb-1">Upload Work Asset</p>
+                                    <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest">Supports PNG, JPG, WEBP (Max 10MB)</p>
+                                </div>
+                                <div className="ml-auto w-10 h-10 rounded-full bg-white/[0.05] flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                                    <Plus size={16} className="text-white/20 group-hover:text-primary" />
+                                </div>
                             </div>
-                            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-primary/10 border border-primary/20 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:bg-primary/20 transition-all">
-                                {uploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
-                                {uploading ? "Uploading..." : "Upload"}
-                            </button>
                             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                         </div>
+                        {uploading && (
+                            <div className="flex items-center gap-3 p-4 rounded-2xl bg-primary/5 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest animate-pulse">
+                                <Loader2 size={14} className="animate-spin" />
+                                Synchronizing with Cloudinary...
+                            </div>
+                        )}
                         {formData.image && (
                             <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10">
                                 <img src={formData.image} className="w-full h-full object-cover" />

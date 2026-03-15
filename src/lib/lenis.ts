@@ -22,6 +22,9 @@ export const useLenis = () => {
 
     lenisRef.current = lenis;
 
+    // Attach to window for global access if needed
+    (window as any).lenis = lenis;
+
     const update = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -36,6 +39,7 @@ export const useLenis = () => {
       gsap.ticker.remove(update);
       lenis.destroy();
       lenisRef.current = null;
+      delete (window as any).lenis;
     };
   }, []);
 
