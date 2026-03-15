@@ -22,7 +22,10 @@ export default function Contact() {
           </h2>
           <h1 className="text-5xl md:text-8xl font-black text-white leading-tight tracking-tighter mb-8">
             LET'S START A <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/40">
+            <span 
+              className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary to-primary/40 inline-block"
+              style={{ WebkitTextFillColor: 'transparent' }}
+            >
               CONVERSATION
             </span>
           </h1>

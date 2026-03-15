@@ -50,7 +50,6 @@ export function Footer() {
           style={{ background: "radial-gradient(ellipse, #6c63ff, transparent)" }}
         />
         <div className="container-lg relative z-10 text-center">
-          <p className="label-sm text-white/25 mb-5">Ready to build something great?</p>
           <h2
             className="font-black text-white mb-8"
             style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 0.95, letterSpacing: "-0.03em" }}
