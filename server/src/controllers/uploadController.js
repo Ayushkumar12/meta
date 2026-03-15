@@ -13,7 +13,12 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
   const folder = req.query.folder || 'metacode';
 
   const stream = cloudinary.uploader.upload_stream(
-    { folder },
+    { 
+      folder,
+      resource_type: 'auto',
+      quality: 'auto',
+      fetch_format: 'auto'
+    },
     (error, result) => {
       if (error) {
         return next(new ErrorResponse('Upload failed', 500));

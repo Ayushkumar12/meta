@@ -19,7 +19,17 @@ exports.protect = async (req, res, next) => {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await User.findById(decoded.id);
+    // Try finding in Admin collection first, then User
+    const Admin = require('../models/Admin');
+    req.user = await Admin.findById(decoded.id);
+
+    if (!req.user) {
+      req.user = await User.findById(decoded.id);
+    }
+
+    if (!req.user) {
+      return res.status(401).json({ success: false, message: 'User not found' });
+    }
 
     next();
   } catch (err) {

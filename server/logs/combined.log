@@ -22,3 +22,49 @@
 {"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-14 21:42:42"}
 {"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-14 21:42:42"}
 {"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-14 21:43:46"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-14 22:11:56"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-14 22:11:56"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:28:26"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:50:03"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:50:26"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:50:30"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:50:38"}
+{"level":"error","message":"Invalid credentials","service":"metacode-backend","stack":"Error: Invalid credentials\n    at D:\\new projects\\MetaCode\\server\\src\\controllers\\authController.js:21:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":401,"timestamp":"2026-03-15 08:50:47"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:50:51"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:51:38"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:51:44"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 08:51:52"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:01:34"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:02:20"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:03:52"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:04:50"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:05:48"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:05:56"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:06:47"}
+{"level":"info","message":"Server running in production mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:07:03"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:08:03"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:11:39"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:11:55"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:14:45"}
+{"level":"error","message":"Invalid credentials","service":"metacode-backend","stack":"Error: Invalid credentials\n    at D:\\new projects\\MetaCode\\server\\src\\controllers\\authController.js:21:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":401,"timestamp":"2026-03-15 09:14:56"}
+{"level":"error","message":"Invalid credentials","service":"metacode-backend","stack":"Error: Invalid credentials\n    at D:\\new projects\\MetaCode\\server\\src\\controllers\\authController.js:21:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":401,"timestamp":"2026-03-15 09:15:09"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:18:05"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:18:16"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:18:36"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:18:42"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:18:48"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:18:53"}
+{"level":"error","message":"Invalid credentials","service":"metacode-backend","stack":"Error: Invalid credentials\n    at D:\\new projects\\MetaCode\\server\\src\\controllers\\authController.js:21:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":401,"timestamp":"2026-03-15 09:18:53"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:19:05"}
+{"level":"error","message":"Invalid credentials","service":"metacode-backend","stack":"Error: Invalid credentials\n    at D:\\new projects\\MetaCode\\server\\src\\controllers\\authController.js:22:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":401,"timestamp":"2026-03-15 09:19:05"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:19:11"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 09:19:24"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 11:01:33"}
+{"level":"error","message":"Cannot read properties of null (reading 'id')","service":"metacode-backend","stack":"TypeError: Cannot read properties of null (reading 'id')\n    at D:\\new projects\\MetaCode\\server\\src\\controllers\\authController.js:59:44\n    at asyncUtilWrap (D:\\new projects\\MetaCode\\server\\node_modules\\express-async-handler\\index.js:3:20)\n    at Layer.handleRequest (D:\\new projects\\MetaCode\\server\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\new projects\\MetaCode\\server\\node_modules\\router\\lib\\route.js:157:13)\n    at exports.protect (D:\\new projects\\MetaCode\\server\\src\\middleware\\auth.js:24:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-03-15 11:01:55"}
+{"level":"error","message":"Cannot read properties of null (reading 'id')","service":"metacode-backend","stack":"TypeError: Cannot read properties of null (reading 'id')\n    at D:\\new projects\\MetaCode\\server\\src\\controllers\\authController.js:59:44\n    at asyncUtilWrap (D:\\new projects\\MetaCode\\server\\node_modules\\express-async-handler\\index.js:3:20)\n    at Layer.handleRequest (D:\\new projects\\MetaCode\\server\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\new projects\\MetaCode\\server\\node_modules\\router\\lib\\route.js:157:13)\n    at exports.protect (D:\\new projects\\MetaCode\\server\\src\\middleware\\auth.js:24:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-03-15 11:01:55"}
+{"level":"error","message":"next is not a function","service":"metacode-backend","stack":"TypeError: next is not a function\n    at model.<anonymous> (D:\\new projects\\MetaCode\\server\\src\\models\\Blog.js:57:3)\n    at Kareem.execPre (D:\\new projects\\MetaCode\\server\\node_modules\\kareem\\index.js:68:39)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-03-15 11:04:48"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 11:05:54"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 11:06:04"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 11:06:11"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 11:07:53"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"metacode-backend","timestamp":"2026-03-15 11:25:35"}

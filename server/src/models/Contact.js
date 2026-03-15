@@ -40,4 +40,7 @@ const contactSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Contact', contactSchema);
+// Indexing for faster admin queries
+contactSchema.index({ read: 1, createdAt: -1 });
+
+module.exports = mongoose.model('Contact', contactSchema, 'contacts');

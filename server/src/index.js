@@ -42,10 +42,38 @@ app.use('/api', limiter);
 app.use(hpp());
 
 // Enable CORS
-app.use(cors());
+const allowedOrigins = [
+  'https://metacode.co.in',
+  'https://www.metacode.co.in',
+  'http://localhost:5173',
+  'http://localhost:3000'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
 
 // Compress midddleware
 app.use(compression());
+
+// Health check
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Server is healthy',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Mount routers
 app.use('/api/auth', require('./routes/auth'));

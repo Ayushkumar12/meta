@@ -5,7 +5,9 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
 import { ArrowRight, Target, Zap, Users, Award, Sparkles } from "lucide-react";
-import { AboutBackground } from "@/components/sections/AboutBackground";
+import { lazy, Suspense } from "react";
+
+const AboutBackground = lazy(() => import("@/components/sections/AboutBackground").then(m => ({ default: m.AboutBackground })));
 
 const STATS = [
   { icon: Users, label: "Projects Shipped", value: 20, suffix: "+" },
@@ -75,7 +77,9 @@ export default function About() {
       />
 
       {/* ── Background ── */}
-      <AboutBackground />
+      <Suspense fallback={<div className="absolute inset-0 bg-[#050508]" />}>
+        <AboutBackground />
+      </Suspense>
 
       <div className="container-lg relative z-10 py-24">
         {/* ── Section 1: Hero Story ── */}

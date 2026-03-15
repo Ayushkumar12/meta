@@ -48,9 +48,24 @@ const blogSchema = new mongoose.Schema({
   }
 });
 
-blogSchema.pre('save', function(next) {
+// Indexing for faster queries
+blogSchema.index({ published: 1, createdAt: -1 });
+blogSchema.index({ category: 1 });
+
+blogSchema.pre('save', function() {
   this.updatedAt = Date.now();
-  next();
 });
 
-module.exports = mongoose.model('Blog', blogSchema);
+// Cascading delete: Remove image from Cloudinary when blog is deleted
+blogSchema.post('deleteOne', { document: true, query: false }, async function() {
+  if (this.imagePublicId) {
+    const cloudinary = require('../utils/cloudinary');
+    try {
+      await cloudinary.uploader.destroy(this.imagePublicId);
+    } catch (err) {
+      console.error('Cloudinary Image Autodelete Failed:', err);
+    }
+  }
+});
+
+module.exports = mongoose.model('Blog', blogSchema, 'blogs');

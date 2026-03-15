@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
+const Admin = require('../models/Admin');
 const jwt = require('jsonwebtoken');
 
 // @desc    Login user
@@ -14,8 +15,14 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Please provide an email and password', 400));
   }
 
-  // Check for user
-  const user = await User.findOne({ email }).select('+password');
+  // Check for admin first, then user
+  let user = await Admin.findOne({ email }).select('+password');
+  let isFromAdminCollection = true;
+
+  if (!user) {
+    user = await User.findOne({ email }).select('+password');
+    isFromAdminCollection = false;
+  }
 
   if (!user) {
     return next(new ErrorResponse('Invalid credentials', 401));
@@ -49,15 +56,13 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @route   GET /api/auth/me
 // @access  Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-
   res.status(200).json({
     success: true,
     admin: {
-      id: user._id,
-      email: user.email,
-      name: user.name,
-      role: user.role
+      id: req.user._id,
+      email: req.user.email,
+      name: req.user.name,
+      role: req.user.role
     }
   });
 });

@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, AnimatePresence, useTransform } from "framer-motion";
 import { ArrowUpRight, Play } from "lucide-react";
-import { HeroBackground } from "./HeroBackground";
+import { lazy, Suspense } from "react";
+
+const HeroBackground = lazy(() => import("./HeroBackground").then(m => ({ default: m.HeroBackground })));
 
 const HEADLINE_WORDS = ["Build.", "Design.", "Launch."];
 const STATS = [
@@ -61,7 +63,9 @@ export function Hero() {
       className="relative min-h-[100dvh] flex flex-col items-center justify-center text-center overflow-hidden bg-[#050508]"
     >
       {/* ── 3D Background ── */}
-      <HeroBackground />
+      <Suspense fallback={<div className="absolute inset-0 bg-[#050508]" />}>
+        <HeroBackground />
+      </Suspense>
 
       {/* ── Ambient Glows ── */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">

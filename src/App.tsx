@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { LazyMotion, domAnimation } from "framer-motion";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Navbar } from "@/components/Navbar";
@@ -8,17 +9,17 @@ import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { NoiseOverlay } from "@/components/ui/NoiseOverlay";
 
 // Pages
-import Home from "@/pages/Home";
-import Services from "@/pages/Services";
-import Works from "@/pages/Works";
-import Feedback from "@/pages/Feedback";
-import Contact from "@/pages/Contact";
-import About from "@/pages/About";
-import ServiceDetail from "@/pages/ServiceDetail";
-import ProjectDetail from "@/pages/ProjectDetail";
-import Blog from "@/pages/Blog";
-import BlogDetail from "@/pages/BlogDetail";
-import Admin from "@/pages/Admin";
+const Home = lazy(() => import("@/pages/Home"));
+const Services = lazy(() => import("@/pages/Services"));
+const Works = lazy(() => import("@/pages/Works"));
+const Feedback = lazy(() => import("@/pages/Feedback"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const About = lazy(() => import("@/pages/About"));
+const ServiceDetail = lazy(() => import("@/pages/ServiceDetail"));
+const ProjectDetail = lazy(() => import("@/pages/ProjectDetail"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const BlogDetail = lazy(() => import("@/pages/BlogDetail"));
+const Admin = lazy(() => import("@/pages/Admin"));
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -40,13 +41,15 @@ export default function App() {
       <>
         <CustomCursor />
         <NoiseOverlay />
-        <Admin />
+        <Suspense fallback={null}>
+          <Admin />
+        </Suspense>
       </>
     );
   }
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <LoadingScreen onComplete={() => setLoading(false)} />
       {!loading && (
         <SmoothScroll>
@@ -55,18 +58,20 @@ export default function App() {
             <Navbar />
 
             <main className="relative z-10">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/services/:slug" element={<ServiceDetail />} />
-                <Route path="/works" element={<Works />} />
-                <Route path="/works/:slug" element={<ProjectDetail />} />
-                <Route path="/feedback" element={<Feedback />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:id" element={<BlogDetail />} />
-              </Routes>
+              <Suspense fallback={null}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/services/:slug" element={<ServiceDetail />} />
+                  <Route path="/works" element={<Works />} />
+                  <Route path="/works/:slug" element={<ProjectDetail />} />
+                  <Route path="/feedback" element={<Feedback />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:id" element={<BlogDetail />} />
+                </Routes>
+              </Suspense>
             </main>
             <Footer />
 
@@ -79,6 +84,6 @@ export default function App() {
         </SmoothScroll>
       )}
       <NoiseOverlay />
-    </>
+    </LazyMotion>
   );
 }
